@@ -1,5 +1,5 @@
 This first module is about seting up the environment. It is supposed to last two weeks.
-The tools and language we are going to use are :
+The tools and language we are going to use are the followings :
 * docker ;
 * sql (using a postgres db since I am workng locally) ;
 * Terraform. 
