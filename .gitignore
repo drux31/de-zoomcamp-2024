@@ -1,0 +1,21 @@
+##files
+*/.env
+.env
+
+.*env
+*config
+queries.sql
+notes
+*.tfsate
+$.tfstate.*
+*.conf
+*.csv
+
+# Airflow log files when airflow is run locally
+.cache
+
+##folders
+logs/
+*/__pycache__/
+cred
+.de_venv/
