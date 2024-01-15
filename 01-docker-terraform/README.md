@@ -7,7 +7,7 @@ The tools and language we are going to use are the followings :
 ### Terraform & GCP
 Terraform installation : all the instruction are available from [the official doc](https://developer.hashicorp.com/terraform/install#Linux). 
 In my case, I decided to use the binary file :
-1. downloaded the binary in my bin folder (~/bin/) :
+1. downloaded the binary in my bin folder (~/bin/) :<br>
 ``
 wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_386.zip
 `` 
