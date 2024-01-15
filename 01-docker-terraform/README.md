@@ -21,12 +21,9 @@ unzip terraform_1.6.6_linux_386.zip
 ``
 terraform --version
 ``
-<br>
-The output should be something like :<br>
-``
-Terraform v1.6.6
+The output should be something like : <br>
+terraform v1.6.6<br>
 on linux_386 
-``
 
 4. Delete the zip file:<br>
 ``
