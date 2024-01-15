@@ -12,23 +12,23 @@ In my case, I decided to use the binary file :
 wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_386.zip
 `` 
 
-2. unzip the downloaded file :
+2. unzip the downloaded file :<br>
 ``
 unzip terraform_1.6.6_linux_386.zip
 ``
 
-3. Test to see it's working :
-\```
-terraform --version
+3. Test to see it's working :<br>
+``
+terraform --version<br>
 The output should be something like :
 Terraform v1.6.6
 on linux_386 
-\```
+``
 
-4. Delete the zip file:
-\```
+4. Delete the zip file:<br>
+``
 rm terraform_1.6.6_linux_386.zip
-\```
+``
 
 I already had a GCP account from the previous cohort, so no particular config needed. We're all set for the course.
 * [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
