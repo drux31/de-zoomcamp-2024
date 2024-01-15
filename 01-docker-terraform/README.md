@@ -22,7 +22,7 @@ unzip terraform_1.6.6_linux_386.zip
 terraform --version
 ``
 <br>
-The output should be something like :
+The output should be something like :<br>
 ``
 Terraform v1.6.6
 on linux_386 
