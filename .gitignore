@@ -7,7 +7,7 @@
 queries.sql
 notes
 *.tfsate
-$.tfstate.*
+*.tfstate.*
 *.conf
 *.csv
 
