@@ -54,6 +54,27 @@ terraform will run a provider on your local machine that will help you manage re
 * appy - execute and build the infrastructure as stated in the code ;
 * destroy - will destroy everything in the terraform file.
 
+For our lesson : 
+1. create a service account on GCP (with Storage admin and BigQuery admin role);
+2. create a terraform file (main.tf) with this [example](https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build) and this [one for the bucket] (https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket)
+3. instead of adding the path to the credentials in the file, create a local env variable setting the google credentials (terraform wil automatically fetch the credentials from the env path variable) : 
+	```
+	export GOOGLE_CREDENTIALS='absolute path to the service account's json credential file'
+	```
+	once the main.tf is created, run the following commands : 
+	
+	```
+	1. terraform init
+	2. terraform plan
+	3. terraform apply
+	```
+####  Troubleshooting :
+if you encouter the following error : 
+Error: googleapi: Error 409: The requested bucket name is not available. The bucket namespace is shared by all users of the system. Please select a different name and try again., conflict
+
+Just change the name of the bucket.
+
+
 ### Official resources.
 * [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
 * [GCP](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/2_gcp_overview.md).
