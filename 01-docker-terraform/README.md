@@ -56,7 +56,7 @@ terraform will run a provider on your local machine that will help you manage re
 
 For our lesson : 
 1. create a service account on GCP (with Storage admin and BigQuery admin role);
-2. create a terraform file (main.tf) with this [example](https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build) and this [one for the bucket] (https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket)
+2. create a terraform file (main.tf) with this [example](https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build) and this [one for the bucket](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket)
 3. instead of adding the path to the credentials in the file, create a local env variable setting the google credentials (terraform wil automatically fetch the credentials from the env path variable) : 
 	```
 	export GOOGLE_CREDENTIALS='absolute path to the service account's json credential file'
