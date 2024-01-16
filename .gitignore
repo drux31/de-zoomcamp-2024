@@ -1,7 +1,7 @@
 ##files
 */.env
 .env
-
+*terraform.lock.*
 .*env
 *config
 queries.sql
@@ -19,3 +19,4 @@ logs/
 */__pycache__/
 cred
 .de_venv/
+.terraform/

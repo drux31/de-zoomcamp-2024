@@ -5,7 +5,9 @@ The tools and language we are going to use are the followings :
 * Terraform. 
 
 ### Terraform & GCP
-Terraform installation : all the instruction are available from [the official doc](https://developer.hashicorp.com/terraform/install#Linux). 
+
+#### Terraform installation : 
+all the instruction are available from [the official doc](https://developer.hashicorp.com/terraform/install#Linux). 
 In my case, I decided to use the binary file :
 1. downloaded the binary in my bin folder (~/bin/) :<br>
 ``
@@ -31,6 +33,28 @@ rm terraform_1.6.6_linux_386.zip
 ``
 
 I already had a GCP account from the previous cohort, so no particular config needed. We're all set for the course.
+
+#### Terraform (little) presentation :
+Terraform is an open source software for infrastructure as a code (IaaS).
+&rarr; IaaS : Terraform, why ?
+* simplicity in keeping track of infra ;
+* easier collabolation ;
+* reproductibility.
+
+&rarr; why not :
+* does not manage and update code on configuration ;
+* does enable changes to immutable resources ;
+* not used to manage resources not definfed in terraform.
+
+terraform will run a provider on your local machine that will help you manage resources for a given provider (GCP in our case).
+
+&rarr;  Key terraform command : 
+* init - get me the provider I need ;
+* plan - what am I about to do (once I define the resource I need) ;
+* appy - execute and build the infrastructure as stated in the code ;
+* destroy - will destroy everything in the terraform file.
+
+### Official resources.
 * [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
 * [GCP](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/2_gcp_overview.md).
 
