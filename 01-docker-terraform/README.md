@@ -163,3 +163,23 @@ Home: http://pgcli.com
 root@localhost:ny_taxi>
 ```
 pgcli is client that allos to connect to a pg database, with a prettier interface than the native client (pgsql).
+
+###### Ingestion script
+We will build a script that will download a CSV file from the internet and load it into our postgres db running into docker.
+1. create the ingestion file :
+```
+touch upload-data.py
+```
+this file wil contain the script for downloading CSV file about the NYC yellow trip data and  and inserting it into postgres. Look into the file in the repo.
+Some tips : 
+to dowload the yellow taxi data we will use : 
+```
+get https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
+```
+Once downloaded, we cannot load it immediately into panda because the file is too big. So in order to analyze it, we will create a small chunk that we will use to study the data : 
+```
+gzip -d yellow_tripdata_2021-01.csv.gz # this will unzip the file
+head -n 100 yellow_tripdata_2021-01.csv > yellow_head_100.csv # This will copy the first 100 lines into a new file called yeallow_head_100.csv
+```
+
+We can now proceed to the analysis of our data.
