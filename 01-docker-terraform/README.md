@@ -76,9 +76,13 @@ Just change the name of the bucket.
 
 Terraform can also be used with [variables](https://developer.hashicorp.com/terraform/language/values/variables). You just create a variables.tf file, and call the variable name ine the main.tf with ```var.variable_name```
 
-#### GCP and Docker
+### Official resources.
+* [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
+* [GCP](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/2_gcp_overview.md).
 
-##### Docker
+### Docker and SQL :
+
+#### Docker
 Docker is a container. Those are sets of platform as a service, that use OS-level virtualization to deliver a packaged software. They are great for isolation, configuration and fast deployment.
 You can have several container running in a host machine, and communicating with each others via configured channels.
 
@@ -133,9 +137,3 @@ inside the working directory :
 
 That's it for the basics.
 
-
-### Official resources.
-* [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
-* [GCP](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/2_gcp_overview.md).
-
-### Docker and SQL :
