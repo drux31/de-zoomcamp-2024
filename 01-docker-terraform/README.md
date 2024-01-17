@@ -74,6 +74,65 @@ Error: googleapi: Error 409: The requested bucket name is not available. The buc
 
 Just change the name of the bucket.
 
+Terraform can also be used with [variables](https://developer.hashicorp.com/terraform/language/values/variables). You just create a variables.tf file, and call the variable name ine the main.tf with ```var.variable_name```
+
+#### GCP and Docker
+
+##### Docker
+Docker is a container. Those are sets of platform as a service, that use OS-level virtualization to deliver a packaged software. They are great for isolation, configuration and fast deployment.
+You can have several container running in a host machine, and communicating with each others via configured channels.
+
+&rarr; Why use docker for a data enginner ?
+* reproductibility ;
+* fast setup for local experiment ;
+* integration test (CI/CD) ;
+* running pipelines on the cloud ;
+* experimenting specific tools (Spark, serverless - AWS Lambda).
+
+&rarr; For our lesson :
+inside the working directory :
+1. create a docker file called Dockefile (```touch Dockerfile```);
+
+2. add some information ; for example, we would a docker container running python 3.9 with pandas installed :
+	```
+	FROM Python:3.9 # will use python 3.9 or greater
+	
+	RUN pip install pandas # install the additional pandas library
+	
+	ENTRYPOINT [ "bash" ] # use bash as an executable environment
+	```
+3. build the docker image :
+	```
+	docker build -t test:pandas .
+	```
+	we basically ask docker to build and image with the tag test:pandas in the current repository (the dot at the end), using the existing Dockerfile.
+	
+4. Once you've built the image, you can run the container :
+	```
+	docker run -it test:pandas
+	```
+	This will launch a new bash terminal with python3.9 and pandas installed, and you're all set.
+
+5. Now we can change our Dockerfile slightly :
+	```
+	FROM python3:.9
+
+	RUN pip install pandas 
+
+	WORKDIR /app # new line added #1
+
+	COPY pipeline.py pipeline.py # this will copy our local pipeline file to container.
+
+	ENTRYPOINT ["python", "pipeline.py"] # this new version tells docker to execute the pipeline python file.
+
+	```
+
+6. Create a pipeline.py python file (you can copy the one in 2_docker_sql/basic folder) ;
+
+7. execute steps 3 and 4 again to see the result.
+
+That's it for the basics.
+
 
 ### Official resources.
 * [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
