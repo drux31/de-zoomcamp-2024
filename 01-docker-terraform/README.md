@@ -76,7 +76,7 @@ Just change the name of the bucket.
 
 Terraform can also be used with [variables](https://developer.hashicorp.com/terraform/language/values/variables). You just create a variables.tf file, and call the variable name ine the main.tf with ```var.variable_name```
 
-### Official resources.
+#### Official resources.
 * [terraform](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/01-docker-terraform/1_terraform_gcp/terraform) ;
 * [GCP](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/1_terraform_gcp/2_gcp_overview.md).
 
@@ -137,3 +137,29 @@ inside the working directory :
 
 That's it for the basics.
 
+#### sql
+##### Installing postgres in Docker
+
+in order to postgres with docker, run the following command :
+```
+docker run -it \
+-e POSTGRES_USER="root" \
+-e POSTGRES_PASSWORD="root" \
+-e POSTGRES_DB="ny_taxi" \
+-v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+-p 5431:5432 \
+postgres:14.3 
+```
+When this code is executed, it launches a container with a running postgres database, waiting for a connection. Since I already have a postgres db running on my local machine, I'll use the port 5431 and forward it to the 5432 port that my local machine is listening to.
+In order to connect, to newly create db  (you should be prompted to type your password -- root in our case):
+```
+pgcli -h localhost -p 5431 -U root -d ny_taxi
+```
+when connected, you should see this :
+```
+Server: PostgreSQL 14.3 (Debian 14.3-1.pgdg110+1)
+Version: 3.5.0
+Home: http://pgcli.com
+root@localhost:ny_taxi>
+```
+pgcli is client that allos to connect to a pg database, with a prettier interface than the native client (pgsql).
