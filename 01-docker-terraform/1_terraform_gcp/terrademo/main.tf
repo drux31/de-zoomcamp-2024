@@ -9,14 +9,14 @@ terraform {
 }
 
 provider "google" {
-  project     = "drux-de-zoomcamp"
-  region      = "us-central1"
-  zone        = "us-central1-c"
+  project = "drux-de-zoomcamp"
+  region  = var.region
+  zone    = var.zone
 }
 
 resource "google_storage_bucket" "auto-expire" {
-  name          = "auto-expiring-demo-bucket"
-  location      = "US"
+  name          = var.gcs_bucket_name
+  location      = var.location
   force_destroy = true
 
   lifecycle_rule {
@@ -36,4 +36,10 @@ resource "google_storage_bucket" "auto-expire" {
       type = "AbortIncompleteMultipartUpload"
     }
   }
+}
+
+
+resource "google_bigquery_dataset" "terrademo_dataset" {
+  dataset_id = var.bq_dataset_name
+  location   = var.location
 }
