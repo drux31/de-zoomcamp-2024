@@ -9,6 +9,7 @@ terraform {
 }
 
 provider "google" {
+  credentials = file(var.google_creds)
   project = "drux-de-zoomcamp"
   region  = var.region
   zone    = var.zone

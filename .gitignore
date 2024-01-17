@@ -10,7 +10,7 @@ notes
 *.tfstate.*
 *.conf
 *.csv
-
+*/variables.tf
 # Airflow log files when airflow is run locally
 .cache
 
