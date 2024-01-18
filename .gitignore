@@ -2,7 +2,6 @@
 */.env
 .env
 *terraform.lock.*
-.*env
 *config
 queries.sql
 notes
@@ -10,6 +9,7 @@ notes
 *.tfstate.*
 *.conf
 *.csv
+*.cfg
 */variables.tf
 # Airflow log files when airflow is run locally
 .cache
@@ -18,8 +18,10 @@ notes
 logs/
 */__pycache__/
 cred
-.de_venv/
 .terraform/
+.de_env/
+*bin/
+*lib/
 
 # Local .terraform directories
 **/.terraform/*
