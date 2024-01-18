@@ -19,7 +19,7 @@ logs/
 */__pycache__/
 cred
 .terraform/
-.de_env/
+.*env/
 *bin/
 *lib/
 
