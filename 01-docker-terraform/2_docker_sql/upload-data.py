@@ -70,31 +70,40 @@ try :
         with open(f'{file_name}', 'r', encoding="utf8") as file :
             cur.execute('drop table if exists yellow_taxi_data;')
             cur.execute(ddl_table_creation)
-            next(file)
-            cur.copy_from(file,
-                            'yellow_taxi_data',
-                            sep=',',
-                            columns=('VendorID', 
-                                     'tpep_pickup_datetime', 
-                                     'tpep_dropoff_datetime',
-                                     'passenger_count',
-                                     'trip_distance', 
-                                     'RatecodeID',
-                                     'store_and_fwd_flag', 
-                                     'PULocationID',
-                                     'DOLocationID',
-                                     'payment_type',
-                                     'fare_amount',
-                                     'extra',
-                                     'mta_tax',
-                                     'tip_amount',
-                                     'tolls_amount', 
-                                     'improvement_surcharge',
-                                     'total_amount', 
-                                     'congestion_surcharge'))
-            cur.execute('select count(*) from yellow_taxi_data;')
-            data = cur.fetchall()
-            print(data)
+            next(file) # skip the first line
+            for row in file:
+                if row[3] == 0:
+                    continue
+                
+                if len(row[0]) <= 0:
+                    row[0] = '0'
+                
+                cur.execute(
+                    """insert into yellow_taxi_data values ({})""",
+                    row
+                )
+                # tpep_pickup_datetime = row[1] #if len(row[0]) > 0 else Null
+                #tpep_dropoff_datetime = row[2]
+                #passenger_count = row[3] if len(row[0]) > 0 else 0
+                #trip_distance = row[0] if len(row[0]) > 0 else 0
+                #RatecodeID = row[0] if len(row[0]) > 0 else 0
+                #store_and_fwd_flag = row[0] if len(row[0]) > 0 else 0
+                '''
+                PULocationID
+                DOLocationID
+                payment_type
+                fare_amount
+                extra
+                mta_tax
+                tip_amount
+                tolls_amount
+                improvement_surcharge
+                total_amount
+                congestion_surcharge
+                '''
+        cur.execute('select count(*) from yellow_taxi_data;')
+        data = cur.fetchall()
+        print(data)
         file.close()
 except :
     conn.rollback()
@@ -103,62 +112,3 @@ else :
     conn.commit()
 finally :
     conn.close()
-
-'''
-with open('data/output.csv', 'w', newline='') as f:
-    fieldnames = [
-                  'VendorID', 
-                  'tpep_pickup_datetime', 
-                  'tpep_dropoff_datetime',
-                  'passenger_count',
-                  'trip_distance', 
-                  'RatecodeID',
-                  'store_and_fwd_flag', 
-                  'PULocationID',
-                  'DOLocationID',
-                  'payment_type',
-                  'fare_amount',
-                  'extra',
-                  'mta_tax',
-                  'tip_amount',
-                  'tolls_amount', 
-                   'improvement_surcharge',
-                   'total_amount', 
-                   'congestion_surcharge'
-                   ]
-    writer = csv.DictWriter(f, fieldnames=fieldnames)
-    writer.writeheader()
-    with open('data/yellow_head_100.csv', newline='') as csvfile:
-        csvreader = csv.DictReader(csvfile)
-        for row in csvreader:
-            print(row)
-            writer.writerow(
-                {
-                  'VendorID': row['VendorID'],
-                  'tpep_pickup_datetime': datetime.strptime(row['tpep_pickup_datetime'], '%Y-%m-%d %H:%M:%S'), 
-                  'tpep_dropoff_datetime': datetime.strptime(row['tpep_dropoff_datetime'], '%Y-%m-%d %H:%M:%S'),
-                  'passenger_count': row['passenger_count'],
-                  'trip_distance': row['trip_distance'], 
-                  'RatecodeID': row['RatecodeID'],
-                  'store_and_fwd_flag': row['store_and_fwd_flag'],  
-                  'PULocationID': row['PULocationID'],
-                  'DOLocationID': row['DOLocationID'],
-                  'payment_type': row['payment_type'],
-                  'fare_amount': row['fare_amount'],
-                  'extra': row['extra'],
-                  'mta_tax': row['mta_tax'],
-                  'tip_amount': row['tip_amount'],
-                  'tolls_amount': row['tolls_amount'], 
-                   'improvement_surcharge': row['improvement_surcharge'],
-                   'total_amount': row['total_amount'], 
-                   'congestion_surcharge': row['congestion_surcharge']
-                }
-            )
-            #print((row['tpep_pickup_datetime']))
-            #print('datetime version : ', datetime.strptime(row['tpep_pickup_datetime'], '%Y-%m-%d %H:%M:%S'))
-        csvfile.close()
-f.close()
-df_output = pd.read_csv('data/output.csv')
-print(pd.io.sql.get_schema(df_output, name='yellow_taxi_data_bis'))
-
-'''
