@@ -6,10 +6,14 @@ This script is a simple pipeline to load the yellow taxi trips
 data into postgres db runing in docker
 """
 import configparser
-#from shutil import unpack_archive
+from shutil import unpack_archive
+from pathlib import Path
+#from glob import glob
 import psycopg2
+from psycopg2 import extras
 import pandas as pd
 import csv
+from datetime import datetime
 
 # get db postgres connection info
 parser = configparser.ConfigParser()
@@ -24,7 +28,10 @@ port = parser.get("pg_config", "port")
 # Read the CSV file with pandas (we're reading only the firts 100 lines)
 # because the file contains more than 1 million lines
 df = pd.read_csv('data/yellow_tripdata_2021-01.csv', nrows=100)
-print(df)
+
+## print the df
+#print(df)
+
 
 # convert "tpep_pickup_datetime" and and "tpep_dropoff_datetime"
 # from Text to datetime
@@ -51,38 +58,41 @@ conn = psycopg2.connect(f"dbname={dbname} " +
                         port=port)
 
 #create a cursor
+file_name = 'data/yellow_tripdata_2021-01.csv'
+
+
 # Create a new CSV file in which
 # null values are replaced by zeros
 # https://stackoverflow.com/questions/47151375/python-modifying-a-csv-file
+
+
 try :
     with conn.cursor() as cur :
-        with open('data/yellow_tripdata_2021-01.csv', 
-                  'r', 
-                  encoding="utf8", 
-                  newline='') as infile, open('data/output.csv', 
-                                              'w', 
-                                              encoding="utf8", 
-                                              newline='') as outfile:
-            input = csv.DictReader(infile)
-            output = csv.DictWriter(outfile, fieldnames=input.fieldnames)
-            output.writeheader()
-            for row in input:
-                if len(row['VendorID']) <= 0 or len(row['passenger_count']) <= 0:
-                    continue
-                output.writerow(row)
-            infile.close()
-            outfile.close()
-        with open('data/output.csv', encoding='utf8') as f:
-            '''Load the new output.csv file into postgres'''
+        with open(f'{file_name}', 'r', encoding="utf8") as file :
             cur.execute('drop table if exists yellow_taxi_data;')
             cur.execute(ddl_table_creation)
-            next(f)
-            cur.copy_from(f, 'yellow_taxi_data', sep=',')
+            next(file) # skip the first line
             
+            #cur.copy_from(file, 'yellow_taxi_data', sep=',')
+            
+            for row in file:
+                print(row)
+                if row[3] == 0:
+                    continue
+                
+                if len(row[0]) <= 0:
+                    row[0] = '0'
+                cur.execute("""
+                            insert into yellow_taxi_data
+                            "values
+                            (%d, %s, %s, %d, %s, %d, %s, %s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s)
+                            """, 
+                            row)
+
         cur.execute('select count(*) from yellow_taxi_data;')
         data = cur.fetchall()
         print(data)
-        f.close()
+        file.close()
 except :
     conn.rollback()
     raise

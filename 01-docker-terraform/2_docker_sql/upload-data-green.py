@@ -23,20 +23,20 @@ port = parser.get("pg_config", "port")
 
 # Read the CSV file with pandas (we're reading only the firts 100 lines)
 # because the file contains more than 1 million lines
-df = pd.read_csv('data/yellow_tripdata_2021-01.csv', nrows=100)
+df = pd.read_csv('data/green_tripdata_2019-09.csv', nrows=100)
 print(df)
 
 # convert "tpep_pickup_datetime" and and "tpep_dropoff_datetime"
 # from Text to datetime
-df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
 
 '''
 -->  generate the schema
 the following line extracts the structure of the df
 and generate the equivalent database schema (table definitions)
 '''
-ddl_table_creation = pd.io.sql.get_schema(df, name='yellow_taxi_data')
+ddl_table_creation = pd.io.sql.get_schema(df, name='green_taxi_data')
 print(ddl_table_creation)
 
 ## we will covert the colums   "tpep_pickup_datetime" 
@@ -56,10 +56,10 @@ conn = psycopg2.connect(f"dbname={dbname} " +
 # https://stackoverflow.com/questions/47151375/python-modifying-a-csv-file
 try :
     with conn.cursor() as cur :
-        with open('data/yellow_tripdata_2021-01.csv', 
+        with open('data/green_tripdata_2019-09.csv', 
                   'r', 
                   encoding="utf8", 
-                  newline='') as infile, open('data/output.csv', 
+                  newline='') as infile, open('data/output_green.csv', 
                                               'w', 
                                               encoding="utf8", 
                                               newline='') as outfile:
@@ -67,19 +67,22 @@ try :
             output = csv.DictWriter(outfile, fieldnames=input.fieldnames)
             output.writeheader()
             for row in input:
-                if len(row['VendorID']) <= 0 or len(row['passenger_count']) <= 0:
+                if len(row['VendorID']) <= 0:
                     continue
+
+                if len(row['ehail_fee']) <= 0:
+                    row['ehail_fee'] = 0
                 output.writerow(row)
             infile.close()
             outfile.close()
-        with open('data/output.csv', encoding='utf8') as f:
+        with open('data/output_green.csv', encoding='utf8') as f:
             '''Load the new output.csv file into postgres'''
-            cur.execute('drop table if exists yellow_taxi_data;')
+            cur.execute('drop table if exists green_taxi_data;')
             cur.execute(ddl_table_creation)
             next(f)
-            cur.copy_from(f, 'yellow_taxi_data', sep=',')
+            cur.copy_from(f, 'green_taxi_data', sep=',')
             
-        cur.execute('select count(*) from yellow_taxi_data;')
+        cur.execute('select count(*) from green_taxi_data;')
         data = cur.fetchall()
         print(data)
         f.close()

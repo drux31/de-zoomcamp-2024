@@ -182,4 +182,39 @@ gzip -d yellow_tripdata_2021-01.csv.gz # this will unzip the file
 head -n 100 yellow_tripdata_2021-01.csv > yellow_head_100.csv # This will copy the first 100 lines into a new file called yeallow_head_100.csv
 ```
 
-We can now proceed to the analysis of our data.
+We can now proceed to the analysis of our data, using openoffice or excel. You can also directly open the file using pandas in the ```upload-data.py``` file: 
+```
+import pandas as pd
+
+'''
+create a new padans dataframe with only a 100 lines
+for a short analysis. Opening the complete file would 
+cause some perf issues, the file having more than 1 million
+lines
+'''
+df = pd.read_csv('data/yellow_tripdata_2021-01.csv', nrows=100)
+print(df)
+```
+By printing the Dataframe, you have a glimpse of the data you're manipulating. You can also take a look at the [data dictionnary](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf) which has detailed information about the data.
+
+I decided to use python CSV package and psycopg2 only to load my data into the postgres in Docker. But you can follow the official course by using Pandas. I only used Pandas for the followings :
+* convert the pickup and dropoff datetime from string to datetime : 
+```
+df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+```
+
+* extract the table definition script ; note that it is not completely correct, but it is sufficient for our purpous here
+```
+ddl_table_creation = pd.io.sql.get_schema(df, name='yellow_taxi_data')
+print(ddl_table_creation)
+```
+
+I used a variable beacause I will use it later in my file.
+
+Having our table definition script, it's time to load the data into postgres. You can have a look in the upload-data.csv file. What I did globally was : 
+* read the CSV file in order to remove empty data (VendorID and passenger_count). Those were causing error during the loading file (Trying to insert enpty string into an integer field) ;
+* created a new CSV file with the cleansed data ;
+* loaded the new the CSV file into postgres using the method copy_from, from the cursor of psycopg2.
+My objective is later to ennhance the speed of the loading script, just using those tools. 
+After loading my database, i have 1271413 rows instead of 1369765, because I removed the empty data.
