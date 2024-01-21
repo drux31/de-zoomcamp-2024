@@ -68,10 +68,26 @@ try :
             output.writeheader()
             for row in input:
                 if len(row['VendorID']) <= 0:
-                    continue
+                    row['VendorID'] = "0"
 
                 if len(row['ehail_fee']) <= 0:
                     row['ehail_fee'] = 0
+
+                if len(row['passenger_count']) <= 0:
+                    row['passenger_count'] = 0
+                
+                if len(row['payment_type']) <= 0:
+                    row['payment_type'] = 0
+
+                if len(row['RatecodeID']) <= 0:
+                    row['RatecodeID'] = 0
+                
+                if len(row['trip_type']) <= 0:
+                    row['trip_type'] = 0
+
+                if len(row['congestion_surcharge']) <= 0:
+                    row['congestion_surcharge'] = 0
+
                 output.writerow(row)
             infile.close()
             outfile.close()

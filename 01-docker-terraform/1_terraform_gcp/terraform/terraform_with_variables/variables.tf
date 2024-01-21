@@ -1,14 +1,14 @@
-variable "credentials" {
-  description = "My Credentials"
-  default     = "<Path to your Service Account json file>"
+#variable "credentials" {
+#  description = "My Credentials"
+#  default     = "<Path to your Service Account json file>"
   #ex: if you have a directory where this file is called keys with your service account json file
   #saved there as my-creds.json you could use default = "./keys/my-creds.json"
-}
+#}
 
 
 variable "project" {
   description = "Project"
-  default     = "<Your Project ID>"
+  default     = "drux-de-zoomcamp"
 }
 
 variable "region" {
