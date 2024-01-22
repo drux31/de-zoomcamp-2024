@@ -136,3 +136,125 @@ Having our table definition script, it's time to load the data into postgres. Yo
 * loaded the new the CSV file into postgres using the method copy_from, from the cursor of psycopg2.
 My objective is later to ennhance the speed of the loading script, just using those tools. 
 After loading my database, i have 1271413 rows instead of 1369765, because I removed the empty data.
+
+
+#### Dockerizing the ingestion script
+We will dockerize our upload-data.py. If you worked on Jupyter notebook, remember to first transform your file into a python file:
+```
+jupyter nbconvert --to=script filename.ipynb
+```
+
+At first, we will parameterize the script, givig database name, table name and CSV url as input. The other information a carried within the config file.
+
+Since we are using a configuration file (see ```pipeline.conf```) , we are going to give only two parameters (instead of what is in the course) : 
+* table name ;
+* url for downloading the CSV file.
+
+I you take a look in the file ```ingest_data.py``` , you'll notice that we changed our script, so that we need to call it like this :
+```
+./ingest_data.py yellow_taxi_data https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
+```
+
+We directly execute our file, since we added a **shebang** (```#!/usr/bin/env python```) and made our file executable (```chmod +x ingest_data.py```). the output after the execution is something like this : 
+```
+VendorID tpep_pickup_datetime tpep_dropoff_datetime  passenger_count  trip_distance  ...  tip_amount tolls_amount  improvement_surcharge  total_amount  congestion_surcharge
+0         1  2021-01-01 00:30:10   2021-01-01 00:36:12                1           2.10  ...        0.00            0                    0.3         11.80                   2.5
+1         1  2021-01-01 00:51:20   2021-01-01 00:52:19                1           0.20  ...        0.00            0                    0.3          4.30                   0.0
+2         1  2021-01-01 00:43:30   2021-01-01 01:11:06                1          14.70  ...        8.65            0                    0.3         51.95                   0.0
+3         1  2021-01-01 00:15:48   2021-01-01 00:31:01                0          10.60  ...        6.05            0                    0.3         36.35                   0.0
+4         2  2021-01-01 00:31:49   2021-01-01 00:48:21                1           4.94  ...        4.06            0                    0.3         24.36                   2.5
+5         1  2021-01-01 00:16:29   2021-01-01 00:24:30                1           1.60  ...        2.35            0                    0.3         14.15                   2.5
+6         1  2021-01-01 00:00:28   2021-01-01 00:17:28                1           4.10  ...        0.00            0                    0.3         17.30                   0.0
+7         1  2021-01-01 00:12:29   2021-01-01 00:30:34                1           5.70  ...        0.00            0                    0.3         21.80                   2.5
+8         1  2021-01-01 00:39:16   2021-01-01 01:00:13                1           9.10  ...        0.00            0                    0.3         28.80                   0.0
+9         1  2021-01-01 00:26:12   2021-01-01 00:39:46                2           2.70  ...        3.15            0                    0.3         18.95                   2.5
+
+[10 rows x 18 columns]
+CREATE TABLE "yellow_taxi_data" (
+"VendorID" INTEGER,
+  "tpep_pickup_datetime" TIMESTAMP,
+  "tpep_dropoff_datetime" TIMESTAMP,
+  "passenger_count" INTEGER,
+  "trip_distance" REAL,
+  "RatecodeID" INTEGER,
+  "store_and_fwd_flag" TEXT,
+  "PULocationID" INTEGER,
+  "DOLocationID" INTEGER,
+  "payment_type" INTEGER,
+  "fare_amount" REAL,
+  "extra" REAL,
+  "mta_tax" REAL,
+  "tip_amount" REAL,
+  "tolls_amount" INTEGER,
+  "improvement_surcharge" REAL,
+  "total_amount" REAL,
+  "congestion_surcharge" REAL
+)
+[(1369765,)]
+Database connection terminated
+```
+
+The execution should take some time, which is normal but it is ok for the purpous at hand. However, notice that the script can be greatly optimized.
+
+Now that our script is parametrized, we can now create our docker file (Dockerfile): 
+```
+FROM python:3.9.1
+
+RUN apt-get install wget
+
+RUN pip install pandas psycopg2-binary
+
+WORKDIR /app
+
+COPY ingest_data.py ingest_data.py
+
+COPY pipeline.conf pipeline.conf # configuration file
+
+RUN mkdir /app/data
+
+ENTRYPOINT [ "python", "ingest_data.py" ]
+```
+
+Some points are important to note here :
+ * configuration file with sensitive datas should not be included in the image (expacially if it's chared ; I did this here for the purpous of simplicity ;
+ * you should create a .dockerignore in your working directory if you have other files than the one needed to build your image, or you can create a subdirectory (which I did).
+
+to create our image : 
+```
+docker build -t taxi_ingest:v001 .
+```
+
+Now we are ready to run our image ; but first,  we need to create a network so our image can connect to the container with the postgres database :
+
+```
+docker network create pg-network
+```
+
+Now we launch our container with postgres in the network :
+```
+docker run -it \
+-e POSTGRES_USER="root" \
+-e POSTGRES_PASSWORD="root" \
+-e POSTGRES_DB="ny_taxi" \
+-v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+-p 5431:5432 \
+--network=pg-network \
+--name pg-database \
+postgres:14.3
+```
+
+After that, we have to change our config file like this :
+```
+host = pg-database
+port = 5432
+username = root
+password = root
+database = ny_taxi
+```
+
+and now we're ready to execute our containerized ingestion script  :
+```
+docker run --network=pg-network taxi_ingest:v001 \
+yellow_taxi_data \
+https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz
+```
