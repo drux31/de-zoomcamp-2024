@@ -53,7 +53,7 @@ def extract_data(url: str) -> str :
         csv_name = 'data/output.csv'
 
     #Downloading the file
-    #os.system(f'wget {url} -O {csv_name}')
+    os.system(f'wget {url} -O {csv_name}')
     return csv_name
 
 
