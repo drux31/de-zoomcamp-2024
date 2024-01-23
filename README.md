@@ -4,7 +4,7 @@ This is my repo on my journey with the 2024 cohort of data engineering zoomcamp 
 
 ## [Module 1 - Intro and prerequisites](https://github.com/drux31/de-zoomcamp-2024/tree/main/01-docker-terraform)
 
-## Module 2 - Workflow orchestration
+## [Module 2 - Workflow orchestration](https://github.com/drux31/de-zoomcamp-2024/tree/main/02-workflow-orchestration)
 
 ## Module 3 - Data warehouse
 
