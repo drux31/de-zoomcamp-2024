@@ -14,8 +14,10 @@ from pathlib import Path
 from glob import glob
 import argparse
 import psycopg2
+from psycopg2.extras import execute_values
 import pandas as pd
 import csv
+import time
 
 def get_args():
     '''
@@ -53,7 +55,7 @@ def extract_data(url: str) -> str :
         csv_name = 'data/output.csv'
 
     #Downloading the file
-    #os.system(f'wget {url} -O {csv_name}')
+    os.system(f'wget {url} -O {csv_name}')
     return csv_name
 
 
@@ -100,15 +102,16 @@ def main() :
                             f"host={host}", 
                             port=port)
 
-    #create a cursor
+    # Create a cursor
     # Create a new CSV file in which
     # null values are replaced by zeros
     # https://stackoverflow.com/questions/47151375/python-modifying-a-csv-file
     try :
-        query = f"""
+        query_t = f"""
         insert into {table_name} 
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        values %s
         """
+
         table_dl = """
         CREATE TABLE yellow_taxi_data (
             VendorID INTEGER,
@@ -131,66 +134,51 @@ def main() :
             congestion_surcharge REAL
         );
         """
-        
         with conn.cursor() as cur :
+            records = []
+            print("-- Started reading zipped data")
+            start = time.process_time()
             with gzip.open(gzip_file, 'rt') as gz_file:
                 csv_obj = csv.DictReader(gz_file, delimiter=',') 
-                #, quoting=csv.QUOTE_NONNUMERIC)
-                #next(csv_obj)
-                #cur.copy_from(csv_obj, table_name, sep=',')
-                records = []
                 for row in csv_obj:
-                    VendorID = row['VendorID'] if len(row['VendorID']) > 0 else '0'
-                    tpep_pickup_datetime = row['tpep_pickup_datetime']
-                    tpep_dropoff_datetime = row['tpep_dropoff_datetime']
-                    passenger_count = row['passenger_count'] if len(row['passenger_count']) > 0 else '0'
-                    trip_distance = row['trip_distance']
-                    RatecodeID = row['RatecodeID'] if len(row['RatecodeID']) > 0 else '0'
-                    store_and_fwd_flag = row['store_and_fwd_flag']
-                    PULocationID = row['PULocationID'] if len(row['PULocationID']) > 0 else '265'
-                    DOLocationID = row['DOLocationID'] if len(row['PULocationID']) > 0 else '265'
-                    payment_type = row['payment_type'] if len(row['payment_type']) > 0 else '5'
-                    fare_amount = row['fare_amount']
-                    extra = row['extra']
-                    mta_tax = row['mta_tax']
-                    tip_amount = row['tip_amount']
-                    tolls_amount = row['tolls_amount']
-                    improvement_surcharge = row['improvement_surcharge']
-                    total_amount = row['total_amount']
-                    congestion_surcharge = row['congestion_surcharge']
-                    if len(VendorID) <= 0:
-                        VendorID = '0'
-                    
-                    test = (VendorID, 
-                            tpep_pickup_datetime,
-                            tpep_dropoff_datetime,
-                            passenger_count,
-                            trip_distance,
-                            RatecodeID,
-                            store_and_fwd_flag,
-                            PULocationID,
-                            DOLocationID,
-                            payment_type,
-                            fare_amount,
-                            extra,
-                            mta_tax,
-                            tip_amount,
-                            tolls_amount,
-                            improvement_surcharge,
-                            total_amount,
-                            congestion_surcharge)
-                    #records = '(' + ', '.join(row) + ',)'
-                    #print(query, test)
-                    records.append(test)
+                     #print(row)
+                    records.append((row['VendorID'] if len(row['VendorID']) > 0 else '0', 
+                            row['tpep_pickup_datetime'],
+                            row['tpep_dropoff_datetime'],
+                            row['passenger_count'] if len(row['passenger_count']) > 0 else '0',
+                            row['trip_distance'],
+                            row['RatecodeID'] if len(row['RatecodeID']) > 0 else '0',
+                            row['store_and_fwd_flag'],
+                            row['PULocationID'] if len(row['PULocationID']) > 0 else '265',
+                            row['DOLocationID'] if len(row['PULocationID']) > 0 else '265',
+                            row['payment_type'] if len(row['payment_type']) > 0 else '5',
+                            row['fare_amount'],
+                            row['extra'],
+                            row['mta_tax'],
+                            row['tip_amount'],
+                            row['tolls_amount'],
+                            row['improvement_surcharge'],
+                            row['total_amount'],
+                            row['congestion_surcharge']))
+            gz_file.close()
+            elapse = time.process_time() - start
+            print("-- Ended reading zipped data")
+            print("elapsed time: ", elapse)
 
-                cur.execute(f'drop table if exists {table_name};')
-                cur.execute(table_dl)
-                cur.executemany(query, records)
+            print("\n-- Started writing into the database")
+            start = time.process_time()
+            cur.execute(f'drop table if exists {table_name};')
+            cur.execute(table_dl)
+            execute_values(cur, query_t, records)
 
-                cur.execute(f'select count(*) from {table_name};')  
-                data = cur.fetchall()
-                print(data)              
-                gz_file.close()
+            elapse = time.process_time() - start
+            print("-- Ended writing into the database")
+            print("elapsed time: ", elapse)
+
+            cur.execute(f'select count(*) from {table_name};')  
+            data = cur.fetchall()
+            print(data)              
+            
     except(Exception, psycopg2.DatabaseError) as error:
         conn.rollback()
         print("Exception with insertion: ",error)
