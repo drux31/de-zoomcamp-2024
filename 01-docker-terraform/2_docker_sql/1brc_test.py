@@ -38,6 +38,20 @@ def process_row(csv_obj, conn, l):
 def process_row_no_lock(csv_obj, conn):
     cities = {}
     i = 0
+    for row in sorted(csv_obj):
+        if row[0].strip() not in cities:
+            cities[row[0].strip()] = [float(row[1])]
+        else:
+            cities[row[0].strip()].append(float(row[1]))    
+        i += 1
+        if i == 100000000:
+            break
+    conn.send(dict(sorted(cities.items())))
+
+'''
+def process_row_bis(row, conn):
+    cities = {}
+    i = 0
     for row in csv_obj:
         if row[0].strip() not in cities:
             cities[row[0].strip()] = [float(row[1])]
@@ -47,6 +61,7 @@ def process_row_no_lock(csv_obj, conn):
         if i == 100000000:
             break
     conn.send(dict(sorted(cities.items())))
+'''
 
 def main():
     txt_file = 'measurements.txt'   

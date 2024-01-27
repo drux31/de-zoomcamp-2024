@@ -12,6 +12,7 @@ import statistics
 import multiprocessing as mp
 import concurrent.futures as cf
 import itertools
+import array
 
 def process_row_lock(chunk, conn, l):
     l.acquire()
@@ -74,19 +75,22 @@ def process_row(chunk):
     print(len(cities))
 
 def main():
-    txt_file = 'measurements.txt'   
+    txt_file = 'head_measurements.txt'   
     print('\nprocessing measurement file multiprocessing\n')
 
-    with open(f'data/{txt_file}', 'r') as f:
-        csv_obj = csv.reader(f, delimiter=';') 
-        file_chunks = list(itertools.batched(csv_obj, 1000))     
-        print(file_chunks[0])
+    with open(f'data/{txt_file}', 'rb') as f:
+        #csv_obj = csv.reader(f, delimiter=';') 
+        #file_chunks = list(itertools.batched(csv_obj, 1000))     
+        #print(file_chunks[0])
         #parent_con, child_con = mp.Pipe()
         #pool = cf.ProcessPoolExecutor(max_workers=6)
         #result = list(pool.map(process_row, file_chunks))
         #print(result[0])
-        map(process_row, file_chunks)
-        f.close()
+        #map(process_row, file_chunks)
+        #f.close()
+        
+        for line in f:
+            print (line)
         '''
         lock = mp.Lock()
         for chunk in file_chunks:
