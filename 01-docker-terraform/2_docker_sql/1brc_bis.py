@@ -75,7 +75,7 @@ def process_row(chunk):
     print(len(cities))
 
 def main():
-    txt_file = 'head_measurements.txt'   
+    txt_file = 'measurements.txt'   
     print('\nprocessing measurement file multiprocessing\n')
 
     with open(f'data/{txt_file}', 'rb') as f:
@@ -88,9 +88,35 @@ def main():
         #print(result[0])
         #map(process_row, file_chunks)
         #f.close()
+        lines = f.readlines()
+
+        arr1 = lines[:int(len(lines)/4)]
+        arr2 = lines[int(len(lines)/4):int(len(lines)/2)]
+        arr3 = lines[int(len(lines)/2):-int(len(lines)/4)]
+        arr4 = lines[-int(len(lines)/4):]
+
+        test = {}
+        print(len(arr1), len(arr2), len(arr3), len(arr4), )
+        tf = None
+        for a in arr1:
+            c,t = a.decode().strip().split(';')
+            tf = c
+            if c in test.keys():
+                test[c].append(float(t))
+            else:
+                test[c]=[float(t)]
         
-        for line in f:
-            print (line)
+        res = {}
+        for c in test :
+            res[c] = f"{min(test[c])}/{round(statistics.mean(test[c]), 1)}/{max(test[c])}"
+
+        print(len(test))
+        print (len(res))
+        
+        #for k in res:
+        #    print (k, res[k])
+        #print(res)
+            
         '''
         lock = mp.Lock()
         for chunk in file_chunks:
