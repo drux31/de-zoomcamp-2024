@@ -149,7 +149,7 @@ testfiles/
 .python_history
 mage_ai/frontend/package-lock.json
 docker-compose.override.yml
-
+docker-compose.yml
 # DB files
 *.db
 
@@ -171,4 +171,4 @@ scratch*
 *secrets*.json
 magic-zoomcamp
 *.json
-
+mage-zoomcamp-master.zip

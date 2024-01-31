@@ -20,7 +20,7 @@ services:
       - 6789:6789
     volumes:
       - .:/home/src/
-      - ~/Documents/secrets/personal-gcp.json:/home/src/personal-gcp.json
+      - ~/.google/credentials/drux-de-zoomcamp-mage-demo.json:/home/src/drux-de-zoomcamp-mage-demo.json
     restart: on-failure:5
   postgres:
     image: postgres:14
