@@ -171,4 +171,6 @@ scratch*
 *secrets*.json
 magic-zoomcamp
 *.json
-mage-zoomcamp-master.zip
+
+##google creds
+drux-de-zoomcamp-mage-demo.json

@@ -20,7 +20,6 @@ services:
       - 6789:6789
     volumes:
       - .:/home/src/
-      - ~/.google/credentials/drux-de-zoomcamp-mage-demo.json:/home/src/drux-de-zoomcamp-mage-demo.json
     restart: on-failure:5
   postgres:
     image: postgres:14
