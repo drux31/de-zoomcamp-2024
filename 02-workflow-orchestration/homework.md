@@ -117,5 +117,71 @@ def test_output(output, *args) -> None:
     assert output['trip_distance'].isin([0]).sum() == 0, 'There are rides with no trip distance'
     assert output['vendor_id'].isna().sum() == 0, 'The vendor ID Has no value'
 
+```
+
+#### Create a data exporter 
+##### Postgres (SQL Loader)
+* schema name: mage ;
+* table name: green_taxi ;
+* write policy: replace.
+* querry: ```select * from {{ df_1 }}```
+
+##### Google (Python)
+
+We reused a big part of the code used to load yellow data into GCS :
 
 ```
+import pyarrow as pa
+import pyarrow.parquet as pq 
+import os
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/src/google-credential-file.json"
+
+bucket_name = 'mage-zoomcamp-drux'
+project_id = "drux-de-zoomcamp"
+
+table_name = "green_taxi_data"
+
+root_path = f'{bucket_name}/{table_name}'
+
+if 'data_exporter' not in globals():
+    from mage_ai.data_preparation.decorators import data_exporter
+
+@data_exporter
+def export_data(data, *args, **kwargs) -> None:
+  
+    table = pa.Table.from_pandas(data)
+
+    gcs = pa.fs.GcsFileSystem()
+
+    pq.write_to_dataset(
+        table,
+        root_path=root_path,
+        partition_cols=['lpep_pickup_date'],
+        filesystem=gcs
+    )
+```
+#### Scheduling the pipeline
+The trigger is created via the UI, and the code is exported into a YAML file as seen below :
+```
+triggers:
+- envs: []
+  name: green_data_pipeline_scheduler
+  pipeline_uuid: green_taxi_etl
+  schedule_interval: '@daily'
+  schedule_type: time
+  settings: {}
+  sla: null
+  start_time: 2024-02-02 05:00:00
+  status: inactive
+  variables: {}
+```
+
+#### Questions 
+1. data loading- nb rows once the dataset is loaded :  ```266,855 rows x 20 columns``` ;
+2. data transformation - nb rows left unppon filtering: ```139,370 rows``` ;
+3. data transformation - command creating a new column : ```data['lpep_pickup_date'] = data['lpep_pickup_datetime'].dt.date``` ;
+4. data transformation - existing values of VendorID in the dataset: 1 or 2 ;
+5. data transformation - number of columns needed to be renamed : 4 ;
+6. data exporting - number of partitions : 56.
+
