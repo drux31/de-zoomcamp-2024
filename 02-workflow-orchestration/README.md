@@ -16,14 +16,17 @@ Mage is an open source pipeline tool for orchestrating, transforming and integra
 
 ##### Working with Mage
 
-globally, What we are doing is :
+globally, What we have done is the following : 
 * Load data from the internet to postgres ;
 * configure GCP and set a service account for Mage ;
 * Load parquet data from the internet to a GCS Bucket ;
-*   
+* Partitioning a large parquet file, in order to speed up the loading to GCS ;
+* Create a pipeline to load data from GCS to BigQuery, enabling a trigger to run the pipeline on schduled time (triggers are actualy what allow schduling in Mage).
 
+We did also dig into some advanced practices like parameterizing pipelines, backfilling or deployment.
+We mainly worked with batch pipelines, but Mage also offers streming or data integration pipelines.
 
-Once the connection is configured, we can build our pipeline to load taxi data from internet to postgres. The code will not be detailed here, it can be found into the source files.
+  
 
 #### Troubleshooting
 * You encounter an error about the port of postgres being already used, change the port into the .env file to 5431.
