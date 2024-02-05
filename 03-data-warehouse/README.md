@@ -4,6 +4,7 @@ A data warehouse is a system that aggregates data from different sources into a 
 ### Components of a data warehouse architecture 
 
 ![Alt text](image.png)
+
 source : [IBM/data-warehouse](https://www.ibm.com/topics/data-warehouse)
 
-* **ETL**: which stands for Extract, Transform and Load, is a process of moving data from the source to the data warehouse.
+* **ETL**: It is a process of moving data from the source to the data warehouse.

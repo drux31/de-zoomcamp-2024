@@ -6,9 +6,9 @@ This is my repo on my journey with the 2024 cohort of data engineering zoomcamp 
 
 ## [Module 2 - Workflow orchestration](https://github.com/drux31/de-zoomcamp-2024/tree/main/02-workflow-orchestration)
 
-## Module 3 - Data warehouse
+## [Module 3 - Data warehouse](https://github.com/drux31/de-zoomcamp-2024/tree/main/03-data-warehouse)
 
-## Module 4 - ANalytics Engineering
+## Module 4 - Analytics Engineering
 
 ## Module 5 - Batch processing
 
