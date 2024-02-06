@@ -1,6 +1,8 @@
 ### Load 2022 green data into BigQuery
 
-#### Step 1 - Load green data into cloud storage
+#### Setup
+
+##### Step 1 - Load green data into cloud storage
 Since the is no transformation, we will not use mage in this case (it would be like using a gun to kill a mousquito)
 
 1. download the data localy from the following link : 
@@ -61,3 +63,5 @@ def main():
         filename = extract_data(url, month)
         write_to_bucket(filename, bucket_name, folder_name)
 ```
+
+##### Step 2 - Create external table into BigQuery
