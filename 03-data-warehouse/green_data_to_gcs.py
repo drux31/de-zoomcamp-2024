@@ -29,7 +29,9 @@ def extract_data(url, month):
     os.system(f'wget {url} -O {file_name}')
     return file_name
 
+
 def main():
+    """Main for the program"""
     # Name of the bucket 
     bucket_name = 'dtc_data_lake_drux-de-zoomcamp'
     #folder name
