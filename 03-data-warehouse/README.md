@@ -24,5 +24,10 @@ BigQuery is cost efficient since the pricing is based on compute (analysis), sto
 * On demand pricing ;
 * Flat rate pricing (ideal fir managing a huge volume of data).
 
+#### Partitioning in BigQuery
+Partitioning can improve BigQuery performance because it reduces the amount of data processed (by going directly into the partition that has the data we need), hence also reducing the cost.
+
+![Alt example of partition](image-1.png)
+
 #### Loading data into bigquery
 We will have to load the 2022 green data into external table (from parquet format). See homework for the process.
