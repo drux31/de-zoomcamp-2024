@@ -119,7 +119,43 @@ Number of records that have a fare_mount of 0
 ```
 -- number of rows with fare_amount = 0
 select count(*) from `drux-de-zoomcamp.ny_taxi.external_green_tripdata_2022`
-where fare_amount = 0;
+where fare_amount = 0; -- 1622
 ```
 ##### question 4
+What is the best strategy to make an optimized table in Big Query if your query will always order the results by PUlocationID and filter based on lpep_pickup_datetime?
+* Partition by lpep_pickup_datetime Cluster on PUlocationID (BigQuery syntax does not allow Clustering before partitioning)
+* Table creation :
 
+```
+-- creating a clustered table
+drop table `drux-de-zoomcamp.ny_taxi.green_tripdata_2022_clustered` ;
+
+create or replace table `drux-de-zoomcamp.ny_taxi.green_tripdata_2022_clustered` 
+partition by date (lpep_pickup_datetime) 
+cluster by PUlocationID as (
+  select * from `drux-de-zoomcamp.ny_taxi.external_green_tripdata_2022`
+);
+```
+
+##### question 5
+query to retrieve the distinct PULocationID between lpep_pickup_datetime 06/01/2022 and 06/30/2022 (inclusive)
+
+```
+-- Materialised table
+select distinct PUlocationID
+from `drux-de-zoomcamp.ny_taxi.green_tripdata_2022`
+where date(lpep_pickup_datetime) between '2022-06-01' and '2022-06-30'; -- 12.82 Mb
+
+-- clustered table
+select distinct PUlocationID
+from `drux-de-zoomcamp.ny_taxi.green_tripdata_2022_clustered`
+where date(lpep_pickup_datetime) between '2022-06-01' and '2022-06-30'; -- 1.12 Mb
+```
+* 12.82 MB for non-partitioned table and 1.12 MB for the partitioned table
+
+##### question 6
+Where is the data stored in the External Table you created?
+* GCP Bucket
+
+##### question 7
+* False
