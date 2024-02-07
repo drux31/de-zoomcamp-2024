@@ -65,3 +65,27 @@ def main():
 ```
 
 ##### Step 2 - Create external table into BigQuery
+We will create an external table, based on the parquet file loaded into cloud storage :
+```
+-- creating an external table from green taxi data of 2022
+create or replace external table `drux-de-zoomcamp.ny_taxi.external_green_tripdata_2022`
+options (
+  format = 'PARQUET',
+  uris = ['gs://de-zoomcamp-bucket-drux/green_data_2022/green_tripdata_2022-*.parquet']
+);
+```
+
+let's check that we have our data :
+```
+select * from `drux-de-zoomcamp.ny_taxi.external_green_tripdata_2022` limit 10
+```
+
+Make sure that the bucket and the dataset are in the same region, or you will not be able to query the data, even if you succed in creating the external table.
+
+##### question 1:
+count of records for the 2022 Green taxi data
+```
+-- count of records for the 2022 Green Taxi Data
+select count(*) from `drux-de-zoomcamp.ny_taxi.external_green_tripdata_2022` ;
+-- 840402
+```

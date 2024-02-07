@@ -33,7 +33,7 @@ def extract_data(url, month):
 def main():
     """Main for the program"""
     # Name of the bucket 
-    bucket_name = 'dtc_data_lake_drux-de-zoomcamp'
+    bucket_name = 'de-zoomcamp-bucket-drux'
     #folder name
     folder_name = 'green_data_2022'
     semi_url = "https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2022"
