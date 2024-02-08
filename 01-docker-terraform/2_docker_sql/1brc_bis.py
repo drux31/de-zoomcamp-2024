@@ -108,7 +108,7 @@ def main():
             c,t = line.decode().strip().split(';')
             lines.append([c,float(t)])
             i += 1
-            if i == 3000000:
+            if i == 1000:
                 break
         grouped_cities  = [(k, list(float(x[1]) for x in v)) for (k, v) in itertools.groupby(sorted(lines, key=lambda x: x[0]), lambda x: x[0])]
         agg_mes = list(map(process_tupple, grouped_cities))
