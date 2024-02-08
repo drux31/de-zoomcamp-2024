@@ -14,4 +14,6 @@ This is my repo on my journey with the 2024 cohort of data engineering zoomcamp 
 
 ## Module 6 - Stream processing
 
+## [Workshops](https://github.com/drux31/de-zoomcamp-2024/tree/main/workshops)
+
 ## Project
