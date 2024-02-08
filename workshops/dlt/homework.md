@@ -89,4 +89,5 @@ Merge the 2 generators using the ID column. Calculate the sum of ages of all the
     print(info)
 ```
 * answer: 266
+
 ![alt data loaded into duckdb](homework_dlt.png)
