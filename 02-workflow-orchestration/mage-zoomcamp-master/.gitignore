@@ -169,7 +169,16 @@ node_modules
 scratch*
 /mage_data*
 *secrets*.json
-magic-zoomcamp
+#magic-zoomcamp
+.ssh_tunnel
+dbt/
+extensions
+interactions
+io_config.yaml
+metadata.yaml
+utils
+charts
+
 *.json
 
 ##google creds

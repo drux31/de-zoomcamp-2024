@@ -17,12 +17,12 @@ The focus for module 4 is on the last two parts (Data modeling and Data presenta
 ### Data modeling
 When we talk about data modeling, it mainly refers to analytical data modeling or dimensional modeling (since we model our data for analytical purpos, building fact and dimensions).
 There are two main techniques :
-* ETL --> Extract, Transform and Load ;
-* ELT --> Extract, Load and Transform.
+* ETL &rarr; Extract, Transform and Load ;
+* ELT &rarr; Extract, Load and Transform.
 
 The transformation process is where the modeling happen. It is mainly about creating to types of tables : 
-&rarr; **Fact** tables --> that represent a business process or a measurement ;
-&rarr; **Dimension** tables that correspond to the context of analysis or a business process.
+&rarr; **Fact** tables &rarr; that represent a business process or a measurement ;
+&rarr; **Dimension** tables &rarr; that correspond to the context of analysis or a business process.
 
 the final schema designed is called a **star schema**.
 
@@ -46,6 +46,7 @@ dbt is a transformation workflow tool that allows to deploy analytics code, usin
 
 we are going to use BigQuery with no local installation of dbt.
 The stack is mainly the following :
+* Cloud storage &rarr; as data source ;
 * dbt &rarr; for data transformation ;
 * BigQuery &rarr; as a data warehouse ;
 * Loooker &rarr; for data visualisation.
