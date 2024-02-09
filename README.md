@@ -8,7 +8,7 @@ This is my repo on my journey with the 2024 cohort of data engineering zoomcamp 
 
 ## [Module 3 - Data warehouse](https://github.com/drux31/de-zoomcamp-2024/tree/main/03-data-warehouse)
 
-## Module 4 - Analytics Engineering
+## [Module 4 - Analytics Engineering](https://github.com/drux31/de-zoomcamp-2024/tree/main/04-analytics-engineering)
 
 ## Module 5 - Batch processing
 
