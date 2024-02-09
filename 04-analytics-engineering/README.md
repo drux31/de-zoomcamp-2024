@@ -39,3 +39,13 @@ This architecture can be divided into three main parts :
 ![alt dbt architecture](image-3.png)
 
 dbt is a transformation workflow tool that allows to deploy analytics code, using SQL and applying sofware engineering best practices.
+
+#### Architecture for the week
+
+![alt architecture of the week](image-4.png)
+
+we are going to use BigQuery with no local installation of dbt.
+The stack is mainly the following :
+* dbt &rarr; for data transformation ;
+* BigQuery &rarr; as a data warehouse ;
+* Loooker &rarr; for data visualisation.
