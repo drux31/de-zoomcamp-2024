@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: staging
+    # for bigquery: database = bigquery project name
+    database: drux-de-zoomcamp
+    schema: trips_data_all
+
+    tables:
+      - name: external_yellow_tripdata_all
+      - name: external_green_tripdata_all
