@@ -46,7 +46,7 @@ dbt is a transformation workflow tool that allows to deploy analytics code, usin
 
 we are going to use BigQuery with no local installation of dbt.
 The stack is mainly the following :
-* Cloud storage &rarr; as data source ;
+* cloud storage &rarr; as data source ;
 * dbt &rarr; for data transformation ;
 * BigQuery &rarr; as a data warehouse ;
 * Loooker &rarr; for data visualisation.
