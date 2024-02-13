@@ -43,4 +43,7 @@ A macro in dbt works like a function in traditional programming. It's created us
 * operate on the result of a query to generate another query ;
 * etc ...
 
-It allows users to encapsulate specific, often repetitive, SQL logic into a named, callable unit ([source](https://popsql.com/blog/dbt-macros))
+It allows users to encapsulate specific, often repetitive, SQL logic into a named, callable unit ([source](https://popsql.com/blog/dbt-macros)).
+
+#### variables
+Variables are useful for defining values that should be used across the project. A variable can also be called in a command.
