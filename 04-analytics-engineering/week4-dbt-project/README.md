@@ -20,7 +20,7 @@ dbt allows us to transform our raw data for analytics purposes. It does so with 
 Going from our sources tables, we will create some sql scripts called models in dbt, that are going to be doing transformation of our data. We will add
 some scripts to clean the data, doing some of those operations : 
 * deduplication ;
-* renaming ;
+* renaming ; 
 * type casting ;
 * adding business logic ;
 * transforming it into facts and dimension table.
