@@ -36,3 +36,11 @@ we need a materialized table into the database, instead of a view. There are 4 t
 * **Table** - physical representation of data that are created and stored into the database ;
 * **Incremental** - tables that allow updates into an existing table, reducing the need for full data refreshes.
 
+#### Macros
+A macro in dbt works like a function in traditional programming. It's created using jinja templating language and helps in elements such as :
+* the use of control structure in SQL (for loops for example) ;
+* the use of environment variables in dbt project for production deployments ;
+* operate on the result of a query to generate another query ;
+* etc ...
+
+It allows users to encapsulate specific, often repetitive, SQL logic into a named, callable unit ([source](https://popsql.com/blog/dbt-macros))
