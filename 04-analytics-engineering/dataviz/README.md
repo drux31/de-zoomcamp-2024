@@ -1,9 +1,9 @@
-### Visualisation
+## Visualisation
 This part is about creating a dashboard from the data ingested with dbt.
 
 we will try to use superset instead of looker from google.
 
-#### Setting up superset
+### Setting up superset
 Since we are in dev env, we will just use the docker image to launch superset.
 
 1. download the dockerimage :
@@ -84,3 +84,21 @@ sources :
 1. [running superset with docker image](https://hub.docker.com/r/apache/superset)
 2. [official doc](https://superset.apache.org/docs/intro)
 
+### Creating dashboard 
+1. Graph 1 - amount of trips per day and service types
+![alt Amount of trip per day and service type](image.png)
+
+
+2. Total trips recoded in the period of time
+![alt total trips recorded](image-1.png)
+
+
+3. Service type distribution
+![alt service type distribution](image-2.png)
+
+
+4. Trips per pickup zones
+![alt trips per pickup zones](image-3.png)
+
+5. Trips per months and service types
+![alt text](image-4.png)
