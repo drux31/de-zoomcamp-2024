@@ -9,6 +9,7 @@ sources:
     tables:
       - name: external_yellow_tripdata_all
       - name: external_green_tripdata_all
+      - name: external_fhv_tripdata_all
 models:
   - name: stg_green_tripdata
     description: ""
