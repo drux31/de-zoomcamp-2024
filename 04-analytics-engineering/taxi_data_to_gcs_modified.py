@@ -15,8 +15,6 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 from google.cloud import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/drux/.google/credentials/drux-de-zoomcamp-terraform-runner.json"
-
 def write_to_bucket(filename, bucket_name, service, year):
     """Write green data parquet file into the given bucket"""
     # Instasiate a client
