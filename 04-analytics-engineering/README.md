@@ -49,4 +49,4 @@ The stack is mainly the following :
 * cloud storage &rarr; as data source ;
 * dbt &rarr; for data transformation ;
 * BigQuery &rarr; as a data warehouse ;
-* Loooker &rarr; for data visualisation.
+* Loooker &rarr; for data visualisation (in my case, i will use superset instead of looker).
