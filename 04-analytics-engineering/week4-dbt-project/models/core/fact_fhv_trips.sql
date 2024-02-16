@@ -14,7 +14,7 @@ dim_zones as (
     where borough != 'Unknown'
 )
 select 
-/*
+
     fhv_tripdata.tripid, 
     fhv_tripdata.dispatching_base_num,
     fhv_tripdata.pickup_datetime, 
@@ -27,8 +27,8 @@ select
     pickup_zones.zone as pickup_zone, 
     dropoff_zones.borough as dropoff_borough, 
     dropoff_zones.zone as dropoff_zone,  
-  */  
-    count(*)
+  
+    --count(*)
 from fhv_tripdata
 inner join dim_zones as pickup_zones
 on fhv_tripdata.pickup_locationid = pickup_zones.locationid
