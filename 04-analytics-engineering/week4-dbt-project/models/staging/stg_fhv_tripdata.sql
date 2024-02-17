@@ -4,14 +4,15 @@
     )
 }}
 
-with tripdata as 
-(
-  select *,
-    row_number() over(partition by dispatching_base_num, pickup_datetime) as rn
-  from {{ source('staging','external_fhv_tripdata_all') }}
-  where dispatching_base_num is not null 
+with tripdata as (
+
+    select * 
+    from {{ source('staging', 'external_fhv_tripdata_all') }}
+    where dispatching_base_num is not null 
+    AND EXTRACT(YEAR FROM pickup_datetime) = 2019
 )
 select
+    
     -- identifiers
     {{ dbt_utils.generate_surrogate_key(['dispatching_base_num', 'pickup_datetime']) }} as tripid,
     dispatching_base_num,
@@ -27,9 +28,10 @@ select
 
     -- payment info
     Affiliated_base_number as affiliated_base_number
+    
+    --count(*)
 from tripdata
-where rn = 1
-and date(pickup_datetime) between '2019-01-01' and '2019-12-31'
+--where rn = 1
 
 -- dbt build --select stg_fhv_tripdata --vars '{'is_test_run': 'false'}'
 {% if var('is_test_run', default=true) %}
