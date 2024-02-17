@@ -5,4 +5,17 @@
 2. Code for the CI job
 * The code from a development branch requesting a merge to main
 
-3. Count of records in fhv trips
+3. What is the count of records in the model fact_fhv_trips after running all dependencies with the test run variable disabled (:false)?
+-- script for the staging area
+```
+with tripdata as (
+
+    select * 
+    from {{ source('staging', 'external_fhv_tripdata_all') }}
+    where dispatching_base_num is not null 
+    AND EXTRACT(YEAR FROM pickup_datetime) = 2019
+)
+```
+-- answer : 22998722
+
+4. What is the service that had the most rides during the month of July 2019 month with the biggest amount of rides after building a tile for the fact_fhv_trips table?
