@@ -6,6 +6,9 @@
 * The code from a development branch requesting a merge to main
 
 3. What is the count of records in the model fact_fhv_trips after running all dependencies with the test run variable disabled (:false)?
+
+![alt text](image.png)
+
 -- script for the staging area
 ```
 with tripdata as (
@@ -19,3 +22,6 @@ with tripdata as (
 -- answer : 22998722
 
 4. What is the service that had the most rides during the month of July 2019 month with the biggest amount of rides after building a tile for the fact_fhv_trips table?
+-- answer : Yellow
+
+![alt text](4.jpg)
