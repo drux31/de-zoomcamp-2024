@@ -10,10 +10,10 @@ This is my repo on my journey with the 2024 cohort of data engineering zoomcamp 
 
 ## [Module 4 - Analytics Engineering](https://github.com/drux31/de-zoomcamp-2024/tree/main/04-analytics-engineering)
 
-## Module 5 - Batch processing
+## [Module 5 - Batch processing](https://github.com/drux31/de-zoomcamp-2024/tree/main/05-batch-processing)
 
-## Module 6 - Stream processing
+## [Module 6 - Stream processing](https://github.com/drux31/de-zoomcamp-2024/tree/main/06-stream-processing)
 
 ## [Workshops](https://github.com/drux31/de-zoomcamp-2024/tree/main/workshops)
 
-## Project
+## [Project](https://github.com/drux31/de-zoomcamp-2024/tree/main/project)
