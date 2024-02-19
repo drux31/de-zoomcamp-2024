@@ -33,5 +33,20 @@ What are use cases for Spark:
 #### Installing Spark
 Spark works fine with Java version 8, 11 or 17.
 download spark : https://spark.apache.org/downloads.html
-I'm using version 3.3 of Spark.
+I'm using version 3.4.2 of Spark.
 
+
+#### Troubleshouting:
+If you encounter the following error :
+```
+AttributeError: 'DataFrame' object has no attribute 'iteritems'. Did you mean: 'isetitem'?
+```
+
+Note that Pandas remove iteritems from version 2 and onward, so if using a Spark version inferior to 3.4, you can either downgrade the version of panda to 1.5.3, or use the following hack if you don't want to downgrade pandas :
+```
+import pandas as pd
+pd.DataFrame.iteritems = pd.DataFrame.items
+```
+
+Or you could also upgrade Spark version to at least 3.4.1 (since it seems the issue solved from there).
+source --> https://stackoverflow.com/questions/76404811/attributeerror-dataframe-object-has-no-attribute-iteritems
