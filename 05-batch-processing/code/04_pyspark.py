@@ -6,10 +6,9 @@
     Testing pyspark
 """
 import pyspark
-import time # for keeping the spark job running
 from pyspark.sql import SparkSession
+from pyspark.sql import types
 import pandas as pd
-pd.DataFrame.iteritems = pd.DataFrame.items
 
 while True:
 
@@ -18,10 +17,9 @@ while True:
         .appName('test') \
         .getOrCreate()
 
-    # We will use the measurement file generated for the 1 billion raw chalenge
     df = spark.read \
         .option("header", "true") \
-        .text('../data/fhvhv_tripdata_2021-06.csv')
+        .csv('../data/fhvhv_tripdata_2021-06.csv')
     
     df.show()
     print(df.head(5), '\n')
@@ -32,10 +30,38 @@ while True:
     print(df_pd, df_pd.dtypes, '\n')
 
     print('creating a spark  dataframe from pandas')
-    spark.createDataFrame(df_pd).show()
+    df1 = spark.createDataFrame(df_pd)
+    print(df1.schema)
+
+    schema = types.StructType([
+        types.StructField('dispatching_base_num', types.StringType(), True),
+        types.StructField('pickup_datetime', types.TimestampType(), True), 
+        types.StructField('dropoff_datetime', types.TimestampType(), True),
+        types.StructField('PULocationID', types.IntegerType(), True), 
+        types.StructField('DOLocationID', types.IntegerType(), True), 
+        types.StructField('SR_Flag', types.IntegerType(), True), 
+        types.StructField('Affiliated_base_number',types.StringType(), True)
+    ])
     
-    s = input('type "quit" to end the program--> ')
-    if s == "quit":
+    print (schema, '\n')
+
+    print('new Spark dataframe with persisted schema')
+    df = spark.read \
+        .option("header", "true") \
+        .schema(schema) \
+        .csv('../data/fhvhv_tripdata_2021-06.csv')
+    
+    df.show()
+    print(df.head(10))
+
+    ## Creating repartition with spark for processing distribution
+    df = df.repartition(24)
+
+    #Write the chunked files to parquet locally
+    df.write.parquet('../data/fhvhv/2021/06/')
+
+    s = input('type "q" to end the program--> ')
+    if s == "q":
         break
 
 # For UI to stick

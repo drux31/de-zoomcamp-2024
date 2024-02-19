@@ -35,6 +35,16 @@ Spark works fine with Java version 8, 11 or 17.
 download spark : https://spark.apache.org/downloads.html
 I'm using version 3.4.2 of Spark.
 
+Spark has a system called partition that enables the possibility of processing a large file in distributed manner, by chunking it in smaller files and speeding up the process.
+
+##### Spark dataframe
+A DataFrame is a Dataset organized into named columns. It is conceptually equivalent to a table in a relational table. Functions applied on a Spark dataframe are ether actions or transformations. Transformations are lazy functions, meaning they are not executed immediately ; they are actually triggered when called with an action functions (eager), which execute immediately.
+
+Spark also offers some functions and user defined functions. Those can help to implement a specific business logic that cannot be defined using sql queries. But most of the time, it's better to combine Spark with SQL queries.
+
+##### Spark SQL (SparQL)
+
+
 
 #### Troubleshouting:
 If you encounter the following error :
