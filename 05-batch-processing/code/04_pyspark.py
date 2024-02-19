@@ -9,7 +9,6 @@ import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql import types
 import pandas as pd
-pd.DataFrame.iteritems = pd.DataFrame.items
 
 while True:
 

@@ -1,12 +1,28 @@
-types.StructType([
-    types.StructField('dispatching_base_num', types.StringType(), True),
-    types.StructField('pickup_datetime', types.TimestampType(), True), 
-    types.StructField('dropoff_datetime', types.TimestampType(), True),
-    types.StructField('PULocationID', types.IntegerType(), True), 
-    types.StructField('DOLocationID', types.IntegerType(), True), 
-    types.StructField('SR_Flag', types.IntegerType(), True), 
-    types.StructField('Affiliated_base_number',types.StringType(), True)
-])
+#!/usr/bin/env python
+# coding: utf-8
+# author: drux31 <contact@lnts.me>
+# date : 2024-02-19
+"""
+    Transforming CSV Taxi data into parquet
+"""
+import pyspark
+from pyspark.sql import SparkSession
+from pyspark.sql import types
+from pyspark.sql import functions as F
+import pandas as pd
+import argparse
+import os
+
+# --------------------------------------------------
+def get_args():
+    """Get command-line arguments"""
+    parser = argparse \
+        .ArgumentParser(description='Dowload csv files from github.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('year', type=int, help='YEAR TO DOWNLOAD FROM!')
+    parser.add_argument('service', type=str, help='SERVICE TO DOWNLOAD!')
+
+    return parser.parse_args()
 
 
 # --------------------------------------------------
@@ -36,7 +52,7 @@ def get_schema(service):
                 types.StructField("trip_type", types.IntegerType(), True),
                 types.StructField("congestion_surcharge", types.FloatType(), True)
             ])
-            yield green_schema
+            return green_schema
         case 'yellow':
             yellow_schema = types.StructType([
                 types.StructField("VendorID", types.IntegerType(), True),
@@ -58,27 +74,54 @@ def get_schema(service):
                 types.StructField("total_amount", types.FloatType(), True),
                 types.StructField("congestion_surcharge", types.FloatType(), True)
             ])
-            yield yellow_schema
-
+            return yellow_schema
 
 
 # --------------------------------------------------
-def create_parquet_files(service, filename, year, service_schema):
-    """
-    Create and store parquet file from CSV
-    with SPark
-    """
-    #ignite a Spark session
+def create_parquet(service, input_path, output_path, schema):
+    """write parquet file"""
     spark = SparkSession.builder \
-        .master("local[*]") \
-        .appName('test') \
-        .getOrCreate()
-    
+            .master("local[*]") \
+            .appName('test') \
+            .getOrCreate()
 
-    print('Create Spark dataframe with persisted schema')
     df = spark.read \
-        .option("header", "true") \
-        .schema(service_schema) \
-        .csv(f'../data/fhvhv_tripdata_2021-06.csv')
+    .option("header", "true") \
+    .schema(schema) \
+    .csv(input_path)
+
+    df \
+    .repartition(12) \
+    .write.parquet(output_path)
 
 
+# --------------------------------------------------
+def get_months(year):
+    """return the number of months equivalent to the year"""
+    if year == 2021:
+        return ['01', '02', '03', '04', '05', '06', '07']
+    else:
+        return ['01', '02', '03', '04', '05', '06', 
+              '07', '08', '09', '10', '11', '12']
+
+
+# --------------------------------------------------
+def main():
+    """Process the files"""
+    args = get_args()
+    year = args.year
+    service = args.service
+  
+    schema = get_schema(service)
+    print(schema)
+    months = get_months(year)
+    for month in months:
+        input_path = f'../data/csv/{service}/{year}/{month}/'
+        #os.makedirs(f'../data/parquet/{service}/{year}/{month}')
+        output_path = f'../data/parquet/{service}/{year}/{month}/'
+        create_parquet(service, input_path, output_path, schema)
+
+
+# --------------------------------------------------
+if __name__ == '__main__':
+    main()
