@@ -55,6 +55,12 @@ while True:
     df.show()
     print(df.head(10))
 
+    ## Creating repartition with spark for processing distribution
+    df = df.repartition(24)
+
+    #Write the chunked files to parquet locally
+    df.write.parquet('../data/fhvhv/2021/06/')
+
     s = input('type "q" to end the program--> ')
     if s == "q":
         break
