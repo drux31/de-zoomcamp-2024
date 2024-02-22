@@ -61,6 +61,10 @@ from
 
 This offer a great advantage in having the possibility to query files in a datalake using SQL.
 
+##### Spark internals
+This paragraph is mainly about spark cluster and the way they work to optimize the data processing.
+
+
 #### Troubleshouting:
 If you encounter the following error :
 ```
