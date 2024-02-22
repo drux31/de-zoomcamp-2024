@@ -43,8 +43,23 @@ A DataFrame is a Dataset organized into named columns. It is conceptually equiva
 Spark also offers some functions and user defined functions. Those can help to implement a specific business logic that cannot be defined using sql queries. But most of the time, it's better to combine Spark with SQL queries.
 
 ##### Spark SQL (SparQL)
+Spark has built in functions that enable to apply querying operation similar to SQL. however, it's also possible to use SQL directly, by creating a temporary table with the dataframe being manipulated, as followed :
 
+```
+df_name.registerTempTable('temporary_table_name')
+```
 
+Then you can write sql queries calling your temporary table :
+```
+spark.sql(
+"""
+select *
+from 
+    temporary_table_name
+""")
+```
+
+This offer a great advantage in having the possibility to query files in a datalake using SQL.
 
 #### Troubleshouting:
 If you encounter the following error :
