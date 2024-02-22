@@ -10,16 +10,18 @@ from pyspark.sql import SparkSession
 from pyspark.sql import types
 import pandas as pd
 
+
+spark = SparkSession.builder \
+    .master("local[*]") \
+    .appName('test') \
+    .getOrCreate()
+
+df = spark.read \
+    .option("header", "true") \
+    .csv('../data/fhvhv_tripdata_2021-06.csv')
+
+## Loop to persist the Spark cluster
 while True:
-
-    spark = SparkSession.builder \
-        .master("local[*]") \
-        .appName('test') \
-        .getOrCreate()
-
-    df = spark.read \
-        .option("header", "true") \
-        .csv('../data/fhvhv_tripdata_2021-06.csv')
     
     df.show()
     print(df.head(5), '\n')
@@ -43,16 +45,15 @@ while True:
         types.StructField('Affiliated_base_number',types.StringType(), True)
     ])
     
-    print (schema, '\n')
-
     print('new Spark dataframe with persisted schema')
     df = spark.read \
         .option("header", "true") \
         .schema(schema) \
         .csv('../data/fhvhv_tripdata_2021-06.csv')
     
-    df.show()
-    print(df.head(10))
+    ## df.show() prints 20 lines,
+    #so we use heads to limit the number of printed lines
+    print(df.head(5))
 
     ## Creating repartition with spark for processing distribution
     df = df.repartition(24)
@@ -63,6 +64,3 @@ while True:
     s = input('type "q" to end the program--> ')
     if s == "q":
         break
-
-# For UI to stick
-#time.sleep(5000)

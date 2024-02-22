@@ -18,14 +18,16 @@ df_fhv = spark.read.parquet('../data/parquet/fhv/*')
 df_fhv.registerTempTable('fhv_data')
 
 while True:
-    #df_fhv.show()
+    df_fhv.show()
     spark.sql("""
             select 
-                count(1)
+                pickup_datetime,
+                dropoff_datetime,
+                datediff(hour, pickup_datetime, dropoff_datetime) as longest_trip_in_hour
             from
                 fhv_data
-            where 
-              cast(pickup_datetime as date) = '2019-10-15'                        
+            order by 3 desc
+            limit 10                    
             """).show()
     
     res = input('type "q" to end the program--> ')
