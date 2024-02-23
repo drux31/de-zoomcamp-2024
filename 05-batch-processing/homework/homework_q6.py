@@ -28,7 +28,7 @@ df_zones = spark.read \
     .option("header", "true") \
     .schema(schema_zones) \
     .csv('../data/taxi_zone_lookup.csv')
-df_zones.registerTempTable('zones_data')
+df_zones.createOrReplaceTempView('zones_data')
 
 while True:
     '''
@@ -41,6 +41,8 @@ while True:
     SR_Flag|
     Affiliated_base_number
     '''
+    df_zones.show()
+
     spark.sql("""
             select 
                 z1.zone as pickup_zone,
@@ -48,7 +50,6 @@ while True:
             from
                 fhv_data fhv
             join zones_data z1 on z1.locationid = fhv.PULocationID
-            join zones_data z2 on z2.locationid = fhv.DOLocationID
             group by 1
             order by 2 asc
             limit 10                    
