@@ -13,7 +13,8 @@ import gzip
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql import types
-
+from structure import schema
+import duckdb
 
 def web_to_local(short_url):
     """
@@ -61,20 +62,29 @@ def main(short_url):
         if i == 2:
             break
 
-    spark = SparkSession.builder \
-    .master("local[*]") \
-    .appName('project') \
-    .getOrCreate()
+    spark = (
+        SparkSession.builder
+        .master("local[*]") 
+        .appName('project') 
+        .getOrCreate()
+    )
+    cursor = duckdb.connect()
+    print(cursor.execute('SELECT 42').fetchall())
 
     df_foods = (
             spark.read 
+            .schema(schema) 
             .option("header", "true") 
             .option("delimiter", "\t")
             .csv(f'../data/{filename}')
     )
     
-    print(df_foods.schema)
-    print(df_foods.head(2))
+    df_foods.select(df_foods.code, 
+                    df_foods.creator,
+                    df_foods.quantity,
+                    df_foods.nutriscore_score,
+                    df_foods.data_quality_errors_tags,
+                    df_foods.ecoscore_score).show()
     #df_foods.show()
     
 if __name__ == "__main__":
