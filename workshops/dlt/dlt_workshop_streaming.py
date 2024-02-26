@@ -20,11 +20,11 @@ def download_and_yield_rows(url):
 
 
 url = "https://storage.googleapis.com/dtc_zoomcamp_api/yellow_tripdata_2009-06.jsonl"
-
+test_url = 'https://static.openfoodfacts.org/data/openfoodfacts-products.jsonl.gz'
 
 i = 0
 # Use the generator to iterate over rows with minimal memory usage
-for row in download_and_yield_rows(url):
+for row in download_and_yield_rows(test_url):
     #process each row as needed
     print(row)
     i += 1
