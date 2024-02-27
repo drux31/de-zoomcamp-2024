@@ -3,8 +3,8 @@
 # author : drux31<contact@lnts.me>
 # date : 2024-02-26
 '''
-python code from dlt workshop
-- Downloading a file from an API, using stream processing
+python for data ingestion/extraction for the project
+- DATASET : https://www.data.gouv.fr/en/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2022/
 '''
 
 import requests
