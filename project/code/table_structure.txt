@@ -1,0 +1,293 @@
+==> usagers
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ id_vehicule │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ num_veh     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ place       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catu        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ grav        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ sexe        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ an_nais     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ trajet      │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu1       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu2       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu3       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ locp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ actp        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ etatp       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 15 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ id_vehicule │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ num_veh     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ place       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catu        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ grav        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ sexe        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ an_nais     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ trajet      │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu1       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu2       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu3       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ locp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ actp        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ etatp       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 15 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ id_usager   │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ id_vehicule │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ num_veh     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ place       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catu        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ grav        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ sexe        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ an_nais     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ trajet      │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu1       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu2       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu3       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ locp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ actp        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ etatp       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 16 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ id_usager   │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ id_vehicule │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ num_veh     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ place       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catu        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ grav        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ sexe        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ an_nais     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ trajet      │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu1       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu2       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ secu3       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ locp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ actp        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ etatp       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 16 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+==> lieux
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catr        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ voie        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ v1          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ v2          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ circ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ nbv         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vosp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ prof        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr1         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ plan        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ lartpc      │ DOUBLE      │ YES     │ NULL    │ NULL    │ NULL    │
+│ larrout     │ DOUBLE      │ YES     │ NULL    │ NULL    │ NULL    │
+│ surf        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ infra       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ situ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vma         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 18 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catr        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ voie        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ v1          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ v2          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ circ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ nbv         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vosp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ prof        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr1         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ plan        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ lartpc      │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ larrout     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ surf        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ infra       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ situ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vma         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 18 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catr        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ voie        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ v1          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ v2          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ circ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ nbv         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vosp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ prof        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr1         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ plan        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ lartpc      │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ larrout     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ surf        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ infra       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ situ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vma         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 18 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ catr        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ voie        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ v1          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ v2          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ circ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ nbv         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ vosp        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ prof        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr          │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ pr1         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ plan        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ lartpc      │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ larrout     │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ surf        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ infra       │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ situ        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ vma         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 18 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+==> Caractéristiques
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ jour        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ mois        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ an          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ hrmn        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lum         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ dep         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ com         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ agg         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ int         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ atm         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ col         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ adr         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lat         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ long        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 15 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ jour        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ mois        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ an          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ hrmn        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lum         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ dep         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ com         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ agg         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ int         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ atm         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ col         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ adr         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lat         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ long        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 15 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Num_Acc     │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ jour        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ mois        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ an          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ hrmn        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lum         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ dep         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ com         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ agg         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ int         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ atm         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ col         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ adr         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lat         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ long        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 15 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
+
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐
+│ column_name │ column_type │  null   │   key   │ default │  extra  │
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤
+│ Accident_Id │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ jour        │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ mois        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ an          │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ hrmn        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lum         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ dep         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ com         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ agg         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ int         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ atm         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ col         │ BIGINT      │ YES     │ NULL    │ NULL    │ NULL    │
+│ adr         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ lat         │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+│ long        │ VARCHAR     │ YES     │ NULL    │ NULL    │ NULL    │
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤
+│ 15 rows                                                 6 columns │
+└───────────────────────────────────────────────────────────────────┘
