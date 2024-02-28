@@ -6,7 +6,12 @@
 python for data ingestion/extraction for the project
 '''
 import duckdb
-from queries import query_union_lieux, query_union_usagers
+from queries import (
+    query_union_lieux, 
+    query_union_usagers, 
+    query_union_carac,
+    query_union_vhl
+)
 
 def get_con(db_name):
     """Open a connection with duckdb"""
@@ -18,27 +23,34 @@ def create_staging(db_name):
     con = get_con(db_name)
     ## Create the staging schema
     con.sql("CREATE SCHEMA IF NOT EXISTS staging")
-    con.sql("select table_schema, table_name, table_type"
-            + " from information_schema.tables").show()
-    '''
+    
     # Load the usagers data
     con.sql("create or replace table staging.usagers_all as ("
             + query_union_usagers + ")")
-    con.sql("select count(*) from staging.usagers_all").show()
-    con.sql("drop table staging.usagers_all")
-
+        
     #Load the lieux data  
     con.sql("create or replace table staging.lieux_all as ("
             + query_union_lieux + ")")
+        
+    #Load caracteristiques data
+    con.sql("create or replace table staging.caracteristiques_all as ("
+            + query_union_carac + ")")
+       
+    # Load vehicules data
+    con.sql("create or replace table staging.vehicules_all as ("
+            + query_union_vhl + ")")
+    
+    print("Row counts for all the tables")
+    print("Usagers: ")
+    con.sql("select count(*) from staging.usagers_all").show()
+    print("Lieux: ")
     con.sql("select count(*) from staging.lieux_all").show()
-    con.sql("drop table staging.lieux_all")
-    '''
-    con.sql("describe raw_data.caracteristiques_2019").show()
-    con.sql("describe raw_data.caracteristiques_2020").show()
-    con.sql("describe raw_data.caracteristiques_2021").show()
-    con.sql("describe raw_data.caracteristiques_2022").show()
-
+    print("Caractéristiques: ")
+    con.sql("select count(*) from staging.caracteristiques_all").show()
+    print("Véhicules: ")
+    con.sql("select count(*) from staging.vehicules_all").show()
     con.close()
+    return 0
 
 def main(db_name):
     """
