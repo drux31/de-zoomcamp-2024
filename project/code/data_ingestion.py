@@ -8,91 +8,70 @@ python for data ingestion/extraction for the project
 '''
 
 import requests
-import gzip
-
+import os
+import duckdb
+'''
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql import types
 from structure import schema
 import duckdb
+'''
 
-def web_to_local(short_url):
+def get_file(filename, url, year):
     """
     Download the file and save it locally for future use
     """
     #filename = 'openfoodfacts-products.jsonl.gz'
-    filename= 'en.openfoodfacts.org.products.csv.gz'
-    url = f'{short_url}/{filename}'
     response = requests.get(url, stream=True)
     response.raise_for_status() #raise an HTTPError for bad responses
     
-    with open(f'../data/{filename}', 'wb') as fd:
-        n = 1
-        for chunk in response.iter_content(chunk_size=102400):
+    with open(f'../data/{year}/{filename}', 'wb') as fd:
+        #n = 1
+        for chunk in response.iter_content(chunk_size=1024):
             fd.write(chunk)
-            print(f"written chunck {n}")
-            n+=1
-        fd.close()
-    return filename
+            #print(f"written chunck {n}")
+            #n+=1
+    return os.path.isfile(f'../data/{year}/{filename}')
 
 
-def read_and_yield_rows(filename):
+def web_to_local(file_name):
     """
-    Read the file from the local storage
+    Download the file and save it locally for future use
     """
-    with gzip.open(f'../data/{filename}', 'rb') as fd:
-        for line in fd:
-            if line:
-                yield line.decode()
+    years = ['2019', '2020', '2021', '2022']
+    year = None
+    db_name = 'project.db'
+    with open(file_name, encoding='utf-8') as f:
+        for line in f:
+            if line.strip('\n ') in years:
+                year = line.strip('\n ')
+                os.mkdir(f'../data/{year}') # create the folder
+            else:
+                service, url = line.strip('\n ').split(',')
+                filename = f'{service}_{year}.csv'
+
+                if get_file(filename, url, year):
+                    #create a connection to the db
+                    con = duckdb.connect(db_name)
+                    schema_name = 'raw_data'
+                    table_name = filename.split('.')[0]
+                    con.sql(f"CREATE SCHEMA IF NOT EXISTS {schema_name};")
+                    con.sql(f"CREATE TABLE {schema_name}.{table_name}" 
+                            + " AS SELECT * "
+                            + f" FROM read_csv('../data/{year}/{filename}');")
+                    con.table(f"{schema_name}.{table_name}").show()
+                    con.close()
+                    print(filename)        
+    return 0
 
 
-def main(short_url):
+def main(file_name):
     """
     main data ingestion function
     """
-    i = 0
-    #filename = web_to_local(short_url)
-    filename= 'en.openfoodfacts.org.products.csv.gz'
-    # Use the generator to iterate over rows with minimal memory usage
-    '''
-    for row in read_and_yield_rows(filename):
-        #process each row as needed
-        print(row, '\n')
-
-        i += 1
-        if i == 2:
-            break
-    '''
-    spark = (
-        SparkSession.builder
-        .master("local[*]") 
-        .appName('project') 
-        .getOrCreate()
-    )
-    cursor = duckdb.connect()
-    print(cursor.execute('SELECT 42').fetchall())
-
-    df_foods = (
-            spark.read 
-            .schema(schema) 
-            .option("header", "true") 
-            .option("delimiter", "\t")
-            .csv(f'../data/{filename}')
-    )
-    
-    print(df_foods \
-    .select(df_foods.code,
-            df_foods.origins) \
-    .filter(df_foods.code.isNotNull()) \
-    .filter(df_foods.nutriscore_score.isNotNull()) \
-    .filter(df_foods.categories.isNotNull()) \
-    #.filter(df_foods.code == '0000000000100')
-    .count()) 
-    #.show()
-    #df_foods.show()
-    spark.stop()
+    web_to_local(file_name)
     
 if __name__ == "__main__":
-    short_url = 'https://static.openfoodfacts.org/data'
-    #https://static.openfoodfacts.org/data/
-    main(short_url)
+    file_name = 'dataset.txt'
+    main(file_name)
