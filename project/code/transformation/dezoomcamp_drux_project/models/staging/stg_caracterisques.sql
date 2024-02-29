@@ -29,7 +29,7 @@ select
         when 8 then 'Temps couvert'
         when 7 then 'Temps éblouissant'
         else 'Non renseigné'
-    end as atmospherique_conditions,
+    end as cond_atmospherique,
     adr as adresse_postale,
     latitude,
     longitude
