@@ -1,0 +1,11 @@
+
+version: 2
+
+sources:
+  - schema: staging 
+    tables:
+      - name: usagers_all
+      - name: lieux_all
+      - name: caracteristiques_all
+      - name: vehicules_all
+
