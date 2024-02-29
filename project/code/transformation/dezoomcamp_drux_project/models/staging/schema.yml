@@ -2,7 +2,9 @@
 version: 2
 
 sources:
-  - schema: staging 
+  - name: staging 
+    schema: staging 
+    
     tables:
       - name: usagers_all
       - name: lieux_all
