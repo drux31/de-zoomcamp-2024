@@ -2,7 +2,7 @@ with donnees_vehicules as (
 
     select *
     from {{ ref("stg_vehicules") }}
-    where motorisation != 'Inconnue'
+    where description_motirisation != 'Inconnue'
 ),
 donnees_lieux as (
 
@@ -48,6 +48,7 @@ select
     ca.latitude,
     ca.longitude,
     dv.motorisation,
+    dv.description_motirisation,
     dv.nb_occupant as nb_occupant_vhl_public,
     du.annee_naissance as annee_naissance_usager,
     du.genre_usager,
