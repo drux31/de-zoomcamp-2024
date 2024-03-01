@@ -1,6 +1,16 @@
 version: 2
 
 seeds: 
+  - name: codes_communes
+    config:
+      delimiter: ','
+    description: >
+      Liste des communes identifiées par l'INSEE.
+  - name: codes_departements
+    config:
+      delimiter: ','
+    description: >
+      Liste des départements et leurs régions associées.
   - name: categories_vhl
     config:
       column_types: {code_categ: int64, libelle_categ: varchar(100)}

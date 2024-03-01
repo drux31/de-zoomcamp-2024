@@ -32,4 +32,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   dezoomcamp_drux_project:
-    +materialized: table
+    staging:
+      +materialized: view
+    core:
+      +materialized: table
