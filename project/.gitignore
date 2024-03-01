@@ -4,3 +4,6 @@ __pycache__
 project_db.db
 project_db.db*
 !categories_vhl.csv
+!codes_communes.csv
+!codes_departements.csv
+modifying_communes.py
