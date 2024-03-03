@@ -3,14 +3,8 @@
 select 
     Num_Acc as accident_id,
     Accident_date as accident_date,
-    case lum 
-        when 1 then 'Plein jour'
-        when 2 then 'Aube'
-        when 3 then 'Nuit sans éclairage'
-        when 4 then 'Nuit avec éclairage éteint'
-        when 5 then 'Nuit avec éclairage allumé'
-        else 'Inconnu'
-    end as condition_eclairage,
+    lum as luminisote,
+    {{ get_description_luminosite("lum") }} as description_luminosite,
     dep as departement,
     com as commune,
     case agg
