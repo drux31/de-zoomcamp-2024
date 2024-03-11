@@ -8,7 +8,7 @@ donnees_lieux as (
 
     select *
     from {{ ref("stg_lieux") }}
-    where categorie_route != 'Non renseigné'   
+    where dsc_categorie_route != 'Non renseigné'   
 ),
 donnees_caracteristiques as (
 
@@ -57,9 +57,11 @@ final as (
         ca.accident_id,
         ca.accident_date,
         ca.cond_atmospherique,
+        ca.dsc_cond_admonspherique,
         ca.luminisote,
         ca.description_luminosite,
         dl.categorie_route,
+        dl.dsc_categorie_route,
         dp.nom_departement,
         dp.nom_region,
         dc.nom_commune,
