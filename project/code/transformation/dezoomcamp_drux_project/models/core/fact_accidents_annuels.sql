@@ -73,8 +73,11 @@ final as (
         du.annee_naissance as annee_naissance_usager,
         du.genre_usager,
         du.gravite_blessure,
+        du.description_gravite,
         du.categorie_usager,
+        du.description_categorie_usager,
         du.trajet_accident,
+        du.description_trajet,
         coalesce(ua.nb_usagers_par_accidents, 0) as nb_usagers_par_accidents,
         coalesce(va.nb_vehicules_par_accidents, 0) as nb_vehicules_par_accidents
     from donnees_caracteristiques ca
