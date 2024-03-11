@@ -8,7 +8,7 @@ donnees_lieux as (
 
     select *
     from {{ ref("stg_lieux") }}
-    where categorie_route != 'Non renseigné'   
+    where dsc_categorie_route != 'Non renseigné'   
 ),
 donnees_caracteristiques as (
 
@@ -57,9 +57,11 @@ final as (
         ca.accident_id,
         ca.accident_date,
         ca.cond_atmospherique,
+        ca.dsc_cond_admonspherique,
         ca.luminisote,
         ca.description_luminosite,
         dl.categorie_route,
+        dl.dsc_categorie_route,
         dp.nom_departement,
         dp.nom_region,
         dc.nom_commune,
@@ -71,8 +73,11 @@ final as (
         du.annee_naissance as annee_naissance_usager,
         du.genre_usager,
         du.gravite_blessure,
+        du.description_gravite,
         du.categorie_usager,
+        du.description_categorie_usager,
         du.trajet_accident,
+        du.description_trajet,
         coalesce(ua.nb_usagers_par_accidents, 0) as nb_usagers_par_accidents,
         coalesce(va.nb_vehicules_par_accidents, 0) as nb_vehicules_par_accidents
     from donnees_caracteristiques ca

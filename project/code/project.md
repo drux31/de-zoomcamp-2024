@@ -1,5 +1,5 @@
 ### Project general architecture
-![alt general architecture for the capstone project](capstone_project_drux.png)
+![alt general architecture for the capstone project](<capstone project architecture.png>)
 
 #### Staging 
 The data is extracted from the web and stored into a duckDB database, into a staging schema.
