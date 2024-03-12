@@ -18,3 +18,6 @@ We then need to install dbt-core and the ducdb extension :
 ```
 pip install dbt-core dbt-duckdb
 ```
+
+##### Lineage graph
+![dbt lineage graph](image.png)

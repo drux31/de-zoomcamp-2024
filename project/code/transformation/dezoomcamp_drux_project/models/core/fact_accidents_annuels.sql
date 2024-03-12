@@ -13,7 +13,7 @@ donnees_lieux as (
 donnees_caracteristiques as (
 
     select * 
-    from {{ ref("stg_caracterisques") }}
+    from {{ ref("stg_caracteristiques") }}
     where accident_date is not null
 ),
 donnees_usagers as (
@@ -72,6 +72,7 @@ final as (
         dv.nb_occupant as nb_occupant_vhl_public,
         du.annee_naissance as annee_naissance_usager,
         du.genre_usager,
+        du.description_genre_usager,
         du.gravite_blessure,
         du.description_gravite,
         du.categorie_usager,
@@ -81,8 +82,8 @@ final as (
         coalesce(ua.nb_usagers_par_accidents, 0) as nb_usagers_par_accidents,
         coalesce(va.nb_vehicules_par_accidents, 0) as nb_vehicules_par_accidents
     from donnees_caracteristiques ca
-    join dim_dpt dp on dp.code_departement = ca.departement
-    join dim_communes dc on (dc.code_departement = dp.code_departement and dc.code_commune = ca.commune)
+    join dim_dpt dp on dp.code_departement = ca.code_departement
+    join dim_communes dc on (dc.code_departement = dp.code_departement and dc.code_commune = ca.code_commune)
     join donnees_lieux dl on dl.accident_id = ca.accident_id
     join donnees_usagers du on du.accident_id = ca.accident_id
     join donnees_vehicules dv on (dv.accident_id = ca.accident_id and du.vehicule_id = dv.vehicule_id)
