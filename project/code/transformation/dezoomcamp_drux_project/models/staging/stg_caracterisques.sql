@@ -5,8 +5,8 @@ select
     Accident_date as accident_date,
     lum as luminisote,
     {{ get_description_luminosite("lum") }} as description_luminosite,
-    dep as departement,
-    com as commune,
+    dep as code_departement,
+    com as code_commune,
     agg as localisation,
     case agg
         when 1 then 'Hors agglomération'

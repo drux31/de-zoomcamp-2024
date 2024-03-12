@@ -11,3 +11,200 @@ sources:
       - name: caracteristiques_all
       - name: vehicules_all
 
+models:
+  - name: stg_caracteristiques
+    description: "Données caractériques de l'accident dans l'ODS"
+    columns:
+      - name: accident_id
+        data_type: int64
+        decription: "Identifiant unique de l'accident"
+        test:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+        
+      - name: accident_date
+        data_type: date
+        decription: "Date de l'accident"
+        test:
+          - not_null:
+              severity: warn
+      
+      - name: luminisote
+        data_type: int64
+        decription: "Codes des conditions de luminosité de l'accident"
+        
+      - name: description_luminosite
+        data_type: string
+        decription: "Description littérale des conditions de luminosité"
+
+      - name: code_departement
+        data_type: int64
+        decription: "Code du département dans lequel a eu lieu l'accident"
+
+      - name: code_commune
+        data_type: int64
+        decription: "Code de la commune dans laquelle a eu lieu l'accident"
+
+      - name: localisation
+        data_type: int64
+        decription: "code indiquant si l'accident a eu en agglo ou en dehors"
+      
+      - name: description_localisation
+        data_type: string
+        decription: "decription littérale du code de la localisation"
+      
+      - name: cond_atmospherique
+        data_type: int64
+        decription: "Code décrivant les conditions athmosphériques"
+      
+      - name: dsc_cond_admonspherique
+        data_type: string
+        decription: "Description littérale des conditions atmosphériques"
+      
+      - name: adresse_postale
+        data_type: string
+        decription: "Adresse postale localisant l'accident"
+      
+      - name: latitude
+        data_type: numeric
+        decription: "Coordonnée géographique du lieu de l'accident (latitude)"
+
+      - name: longitude
+        data_type: numeric
+        decription: "Coordonnée géographique du lieu de l'accident (longitude)"
+  
+
+  - name: stg_vehicules
+    description: "Informations sur les usagers impliqués dans l'accident - données ODS"
+    columns:
+      - name: accident_id
+        data_type: int64
+        decription: "Identifiant unique de l'accident"
+        test:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('stg_caracteristiques')
+              field: accident_id
+              severity: warn
+
+      - name: vehicule_id
+        data_type: string
+        decription: "Identifiant unique du véhicule impliqué"
+        test:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+        
+      - name: code_categorie_vhl
+        data_type: int64
+        decription: "Code de la catégorie de véhicule"
+
+      - name: motorisation
+        data_type: int64
+        decription: "Code de la motorisation du véhicule"
+      
+      - name: description_motirisation
+        data_type: string
+        decription: "Description littérale de la motorisation du véhicule"
+
+      - name: nb_occupant
+        data_type: int64
+        decription: "Nombre d'occupants dans le cas d'un véhicule de transport en commun, type bus de ville"
+  
+
+  - name: stg_lieux
+    description: "Informations sur le lieu de l'accident dans l'ODS"
+    columns:
+      - name: accident_id
+        data_type: int64
+        decription: "Identifiant unique de l'accident"
+        test:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('stg_caracteristiques')
+              field: accident_id
+              severity: warn
+
+      - name: categorie_route
+        data_type: int64
+        decription: "Type de route où s'est déroulé l'accident"
+      
+      - name: dsc_categorie_route
+        data_type: string
+        decription: "Description littérale du type de route"
+
+      - name: numero_route
+        data_type: string
+        decription: "Numéro de la voie de l'accident"
+
+      - name: vitesse_max
+        data_type: int64
+        decription: "Vitesse maximale autorisée sur la route concernée"
+
+
+  - name: stg_usagers
+    description: "Informations sur les usagers impliqués dans l'accident - données ODS"
+    columns:
+      - name: accident_id
+        data_type: int64
+        decription: "Identifiant unique de l'accident"
+        test:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('stg_caracteristiques')
+              field: accident_id
+              severity: warn
+
+      - name: vehicule_id
+        data_type: string
+        decription: "Identifiant unique du véhicule impliqué"
+        test:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('stg_vehicules')
+              field: vehicule_id
+              severity: warn
+        
+      - name: categorie_usager
+        data_type: int64
+        decription: "Catégorie de l'usager impliqué dans l'accident (piéton, conducteur, etc...)"
+      
+      - name: description_categorie_usager
+        data_type: string
+        decription: "Description littérale de la catégorie usager"
+
+      - name: gravite_blessure
+        data_type: int64
+        decription: "Gravité de la blessure de l'usager impliqué dans l'accident"
+      
+      - name: description_gravite
+        data_type: string
+        decription: "Description littérale de la gravité de la blessure"
+
+      - name: genre_usager
+        data_type: int64
+        decription: "Code indiquant le sexe de l'usager"
+      
+      - name: description_genre_usager
+        data_type: string
+        decription: "Description littérale du sexe de l'usager (homme ou femme)"
+
+      - name: annee_naissance
+        data_type: int64
+        decription: "Année de naissance de la personne impliquée"
+
+      - name: trajet_accident
+        data_type: int64
+        decription: "Code indiquant le trajet que réalisait l'individu"
+
+      - name: description_trajet
+        data_type: string
+        decription: "Description littérale du trajet (trajet domicile-travail par exemple)"
+    

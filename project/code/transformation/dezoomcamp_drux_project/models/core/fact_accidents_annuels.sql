@@ -81,8 +81,8 @@ final as (
         coalesce(ua.nb_usagers_par_accidents, 0) as nb_usagers_par_accidents,
         coalesce(va.nb_vehicules_par_accidents, 0) as nb_vehicules_par_accidents
     from donnees_caracteristiques ca
-    join dim_dpt dp on dp.code_departement = ca.departement
-    join dim_communes dc on (dc.code_departement = dp.code_departement and dc.code_commune = ca.commune)
+    join dim_dpt dp on dp.code_departement = ca.code_departement
+    join dim_communes dc on (dc.code_departement = dp.code_departement and dc.code_commune = ca.code_commune)
     join donnees_lieux dl on dl.accident_id = ca.accident_id
     join donnees_usagers du on du.accident_id = ca.accident_id
     join donnees_vehicules dv on (dv.accident_id = ca.accident_id and du.vehicule_id = dv.vehicule_id)
