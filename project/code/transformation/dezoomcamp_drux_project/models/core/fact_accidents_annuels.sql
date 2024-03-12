@@ -72,6 +72,7 @@ final as (
         dv.nb_occupant as nb_occupant_vhl_public,
         du.annee_naissance as annee_naissance_usager,
         du.genre_usager,
+        du.description_genre_usager,
         du.gravite_blessure,
         du.description_gravite,
         du.categorie_usager,
