@@ -13,7 +13,7 @@ donnees_lieux as (
 donnees_caracteristiques as (
 
     select * 
-    from {{ ref("stg_caracterisques") }}
+    from {{ ref("stg_caracteristiques") }}
     where accident_date is not null
 ),
 donnees_usagers as (
