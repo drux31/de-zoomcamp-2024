@@ -14,3 +14,8 @@ A kafka cluster is a node of machines talking to each others.
 
 
 More info about Kafka here : https://kafka.apache.org/intro
+
+
+### Homework
+
+![general architecture for homework](image.png)

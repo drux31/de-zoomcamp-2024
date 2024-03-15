@@ -141,3 +141,30 @@ Row(lpep_pickup_datetime='2019-10-01 00:26:02', lpep_dropoff_datetime='2019-10-0
 ```
 
 #### Question 7 - Most popular destination
+
+This is how you can do it:
+
+* Add a column "timestamp" using the current_timestamp function
+```
+green_stream = (
+    green_stream
+    .select(F.from_json(F.col("value").cast('STRING'), schema).alias("data"))
+    .select("data.*")
+    .withColumn('timestamp', F.current_timestamp())
+)
+```
+
+* Group by:
+    * 5 minutes window based on the timestamp column (F.window(col("timestamp"), "5 minutes"))
+    * "DOLocationID"
+    * Order by count
+
+```
+popular_destinations = (
+    green_stream
+    .groupBy([F.window("timestamp", "5 minutes"), "DOLocationID"])
+    .count().alias("count")
+    .sort("count", ascending=False)
+)
+```
+result: DOLocationID 74

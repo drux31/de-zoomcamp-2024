@@ -38,6 +38,12 @@ green_stream = (
     .withColumn('timestamp', F.current_timestamp())
 )
 
+popular_destinations = (
+    green_stream
+    .groupBy([F.window("timestamp", "5 minutes"), "DOLocationID"])
+    .count().alias("count")
+    .sort("count", ascending=False)
+)
 
 def peek(mini_batch, batch_id):
     first_row = mini_batch.take(1)
@@ -45,12 +51,22 @@ def peek(mini_batch, batch_id):
         print(first_row[0])
 
 while True:
+    '''
     query = (
         green_stream
         .writeStream
         .foreachBatch(peek)
         .start()
     )
+    '''
+    query = popular_destinations \
+    .writeStream \
+    .outputMode("complete") \
+    .format("console") \
+    .option("truncate", "false") \
+    .start()
+
+    #query.awaitTermination()
 
     k = input("\nType 'q' to quit: ")
     if k == 'q':
